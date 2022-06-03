@@ -1,0 +1,45 @@
+.slide_foot {
+  width: 100%;
+  height: 300px;
+  background-image: url(../assets/img/slide_foot.png);
+}
+
+h2.slide_f_title {
+  font-family: $font_title;
+  width: 40%;
+  color: $color_dark;
+  border: 2px solid $color_one;
+  border-radius: 25px;
+  background-color: $color_two;
+}
+
+.slide_f {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.cards_foot{
+  width: 100vw;
+  height: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+}
+.card_f {
+  width: 236px;
+  height: 234px;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid $color_dark;
+  border-radius: 25px;
+  align-items: center;
+  margin-top: 2px;
+  h3 {
+    color: $color_dark;
+    font-family: $font_title;
+  }
+}
