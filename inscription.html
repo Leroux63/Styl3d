@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Styl3D</title>
+</head>
+
+<body>
+    <header>
+        <img class="logo" src="assets/img/logo.PNG" alt="">
+        <h1 class="header_title text-center">Imprimez toutes vos envies!</h1>
+        <nav>
+            <ul class="head_nav px-2">
+                <li> <a href="./index.html"> Accueil</a></li>
+                <li><a href="./telecharger.html">Télécharger</a></li>
+                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="./forum.html">Forum</a></li>
+                <li><a href="./connexion.html">Connexion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="inscript my-3">
+        <form class="inscription">
+            <div class="row">
+                <div class="col">
+                    <label for="lastname">Nom</label>
+                    <input id="contact_lastname" name="contact[lastname]" class="form-control">
+                </div>
+                <div class="col">
+                    <label for="firstname">Prénom</label>
+                    <input id="contact_firstname" name="contact[firstname]" class="form-control">
+                </div>
+            </div>
+            <div class="col">
+                <label for="username">Pseudo</label>
+                <input id="username" name="contact[username]" class="form-control"><br>
+            </div>
+            <div class="col">
+                <label for="tel">Téléphone</label>
+                <input id="tel" name="contact[tel]" class="form-control"><br>
+            </div>
+            <div class="col">
+                <label for="adresse">Adresse</label>
+                <input id="contact_adresse" name="contact[adresse]" class="form-control">
+            </div>
+            <div class="col">
+                <label for="post_code">Code Postal</label>
+                <input id="contact_post_code" name="contact[post_code]" class="form-control">
+            </div>
+            <div class="col">
+                <label for="town">Ville</label>
+                <input id="contact_town" name="contact[town]" class="form-control">
+            </div>
+            <label for="email">Email</label>
+            <input id="email" name="contact[email]" class="form-control">
+            <label for="Password1" class="form-label">Mot De Passe</label>
+            <input type="password" class="form-control" id="Password1">
+            <label for="Password2" class="form-label">Confirmez Le Mot De Passe</label>
+            <input type="password2" class="form-control" id="Password2">
+
+            <button type="submit" placeholder="Envoyer">Envoyer</button>
+
+
+        </form>
+    </div>
+    <footer>
+        <div class="footer_link">
+            <nav>
+                <ul class="foot_nav px-2">
+                    <li> <a href=""> Accueil</a></li>
+                    <li><a href="">Mentions Légales</a></li>
+                    <li><a href="">CGV</a></li>
+                    <li><a href="">Connexion</a></li>
+                </ul>
+            </nav>
+        </div>
+
+    </footer>
+</body>
+
+</html>

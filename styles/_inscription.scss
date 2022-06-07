@@ -1,0 +1,14 @@
+.inscript{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 60%;
+    height: 800px;
+    margin: auto;
+    border: 5px solid $color_two;
+    border-radius: 15px;
+}
+body{
+    background-color: $color_white;
+}
