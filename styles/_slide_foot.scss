@@ -22,7 +22,6 @@ h2.slide_f_title {
   justify-content: center;
 }
 .cards_foot{
-  width: 100vw;
   height: 250px;
   display: flex;
   flex-direction: row;
@@ -34,6 +33,7 @@ h2.slide_f_title {
   height: 234px;
   display: flex;
   flex-direction: column;
+  background-color: $color_white;
   border: 2px solid $color_dark;
   border-radius: 25px;
   align-items: center;

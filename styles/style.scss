@@ -195,7 +195,15 @@ $font_title: "Jacques Francois";
 @import "_filters.scss";
 @import "_card_center.scss";
 @import "_slide_foot.scss";
-
+@import "_telecharger.scss";
+@import "_detail.scss";
 body{
     margin: 0px;
+    padding: 0px;
+    min-height: 100vh;
+    width: auto;
 }
+
+// * {
+//     outline: 1px solid red;
+// }
