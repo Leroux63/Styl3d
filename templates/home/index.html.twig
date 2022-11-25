@@ -3,18 +3,163 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <section>
+        <div class="slide_top">
+            <div class="slide_h">
+                <h2 class="slide__h text-center my-2">Sélection Téléchargements</h2>
+            </div>
+            <div class="cards">
+                <div class="card_top">
+                    <h3>corps</h3>
+                    <img src="assets/img/img1.png" alt="">
+                    <a href="./detail.php">Voir</a>
+                </div>
+                <div class="card_top">
+                    <h3>Vase-Déco</h3>
+                    <img src="assets/img/img2.png" alt="">
+                    <a href="./detail.php">Voir</a>
+                </div>
+                <div class="card_top">
+                    <h3>Papillon</h3>
+                    <img src="assets/img/img3.png" alt="">
+                    <a href="./detail.php">Voir</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="filters">
+            <button>Categories</button>
+            <button>Utilités</button>
+            <button>Univers</button>
+            <button>Créateurs</button>
+            <button>Top STL</button>
+        </div>
+    </section>
+    <section>
+        <div class="title_card_body">
+            <h2 class="title_cards_body my-3">Nouveautés</h2>
+            <h2 class="title_cards_body my-3">Actu 3D</h2>
+        </div>
+        <div class="bodyactu">
+            <div class="cards_body">
+                <div class="card_center">
+                    <h3>Papillon</h3>
+                    <img src="assets/img/img7.png" alt="">
+                    <a href="./detail.php">Voir</a>
+                </div>
+                <div class="card_center">
+                    <h3>Papillon</h3>
+                    <img src="assets/img/img6.png" alt="">
+                    <a href="./detail.php">Voir</a>
+                </div>
+                <div class="card_center">
+                    <h3>Papillon</h3>
+                    <img src="assets/img/img5.png" alt="">
+                    <button>Voir</button>
+                </div>
+                <div class="card_center">
+                    <h3>Papillon</h3>
+                    <img src="assets/img/img.png" alt="">
+                    <a href="./detail.php">Voir</a>
+                </div>
+                <div class="card_center">
+                    <h3>Papillon</h3>
+                    <img src="assets/img/img3.png" alt="">
+                    <a href="./detail.php">Voir</a>
+                </div>
+                <div class="card_center">
+                    <h3>Papillon</h3>
+                    <img src="assets/img/img3.png" alt="">
+                    <a href="./detail.php">Voir</a>
+                </div>
+                <div class="card_center">
+                    <h3>Papillon</h3>
+                    <img src="assets/img/img3.png" alt="">
+                    <a href="./detail.php">Voir</a>
+                </div>
+                <div class="card_center">
+                    <h3>Papillon</h3>
+                    <img src="assets/img/img3.png" alt="">
+                    <a href="./detail.php">Voir</a>
+                </div>
+                <div class="btn_center my-1">
+                    <button class="btn_plus">Voir Plus</button>
+                </div>
+            </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Stagiaire Osengo 09/PhpstormProjects/Symfony/Styl3d/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Stagiaire Osengo 09/PhpstormProjects/Symfony/Styl3d/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+            <div class="actu3d">
+                <h3>Modéliser des pièces</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit itaque temporibus explicabo
+                    magni,
+                    deserunt quaerat illo debitis incidunt unde eaque dolorum aliquam eos ab tenetur dolores. Magnam
+                    deleniti ea rerum molestias corporis veniam numquam assumenda temporibus, voluptatem quam
+                    quibusdam
+                    ipsum adipisci, ab quisquam qui vel possimus aut. Dolore, voluptates doloribus.
+                </p>
+                <a href="">Lire la suite</a>
+                <h3>3d & Droit de la propriété intellectuelle?</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit itaque temporibus explicabo
+                    magni,
+                    deserunt quaerat illo debitis incidunt unde eaque dolorum aliquam eos ab tenetur dolores. Magnam
+                    deleniti ea rerum molestias corporis veniam numquam assumenda temporibus, voluptatem quam
+                    quibusdam
+                    ipsum adipisci, ab quisquam qui vel possimus aut. Dolore, voluptates doloribus.
+                </p>
+                <a href="">Lire la suite</a>
+                <h3>Pourquoi publier mes designs sur Styl 3D?</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit itaque temporibus explicabo
+                    magni,
+                    deserunt quaerat illo debitis incidunt unde eaque dolorum aliquam eos ab tenetur dolores. Magnam
+                    deleniti ea rerum molestias corporis veniam numquam assumenda temporibus, voluptatem quam
+                    quibusdam
+                    ipsum adipisci, ab quisquam qui vel possimus aut. Dolore, voluptates doloribus.
+                </p>
+                <a href="">Lire la suite</a>
+                <h2 class="title_cards_body my-3">Des petits problèmes?Toutes nos astuces</h2>
+            </div>
+        </div>
+    </section>
+    <div class="slide_foot">
+        <div class="slide_f">
+            <h2 class="slide_f_title text-center my-2">Sélection Styl3D</h2>
+        </div>
+        <section class="cards_foot">
+            <div class="card_f">
+                <h3>corps</h3>
+                <img src="assets/img/img1.png" alt="">
+                <button>Voir</button>
+            </div>
+            <div class="card_f">
+                <h3>Vase-Déco</h3>
+                <img src="assets/img/img2.png" alt="">
+                <button>Voir</button>
+            </div>
+            <div class="card_f">
+                <h3>Papillon</h3>
+                <img src="assets/img/img3.png" alt="">
+                <button>Voir</button>
+            </div>
+        </section>
+    </div>
+    <section class="info_footer">
+        <div class="info_title my-2">
+            <h2>LIENS PRODUITS-FOURNITURES</h2>
+        </div>
+        <div class="info">
+            <div class="info_lien">
+                <li><a href="http://">LIEN 1</a></li>
+                <li><a href="http://">LIEN 2</a></li>
+                <li><a href="http://">LIEN 3</a></li>
+            </div>
+            <article class="foot">
+                <h3>ACTU</h3>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit expedita
+                placeat adipisci. Placeat
+                reprehenderit asperiores, ab iure consectetur possimus aut vel
+                sequi expedita, neque ad delectus
+                eveniet, ea rem atque!
+            </article>
+        </div>
+    </section>
 {% endblock %}
