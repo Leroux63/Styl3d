@@ -25,9 +25,13 @@ class Product
     #[ORM\ManyToMany(targetEntity: ProductCategory::class, mappedBy: 'products')]
     private Collection $productCategories;
 
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Document::class)]
+    private Collection $documents;
+
     public function __construct()
     {
         $this->productCategories = new ArrayCollection();
+        $this->documents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -81,6 +85,36 @@ class Product
     {
         if ($this->productCategories->removeElement($productCategory)) {
             $productCategory->removeProduct($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Document>
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents->add($document);
+            $document->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getProduct() === $this) {
+                $document->setProduct(null);
+            }
         }
 
         return $this;

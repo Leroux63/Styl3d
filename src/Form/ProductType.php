@@ -2,8 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Document;
 use App\Entity\Product;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,7 +18,17 @@ class ProductType extends AbstractType
             ->add('title')
             ->add('description')
             ->add('productCategories')
-        ;
+            ->add('documents', CollectionType::class, [
+                'entry_type' => Document::class,
+                'prototype' => true,
+               // 'allow_add' => true,
+               // 'allow_delete' => true,
+                'by_reference' => false,
+                'required' => true,
+                'label' => false,
+                'mapped' => false,
+                ]
+   );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
