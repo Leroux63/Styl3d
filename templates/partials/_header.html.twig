@@ -1,25 +1,25 @@
 <header class="main-header box-shadow">
 
-    <img class="logo" src="{{asset('images/logo.PNG') }}" alt="logo Styl3d">
+    <p class="logo" ></p>
     <h1 class="header_title text-center">Imprimez toutes vos envies!</h1>
     <nav>
         <ul class="head_nav px-2">
-            <li><a href="./index.php"> Accueil</a></li>
-            <li><a href="./gallery.php">Galleries</a></li>
-            <li><a href="./blog.php">Blog</a></li>
+            <li><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li><a href="{{ path('galleries') }}">Galleries</a></li>
+            <li><a href="{{ path('blog') }}">Blog</a></li>
             <li><a href="./forum.php">Forum</a></li>
-            <li><a href="./connexion.php">Connexion</a></li>
+            <li><a href="{{ path('app_login') }}">Connexion</a></li>
 
         </ul>
     </nav>
     <div id="mySidenav" class="sidenav">
         <a id="closeBtn" href="#" class="close">×</a>
         <ul>
-            <li><a href="./index.php">Accueil</a></li>
-            <li><a href="./gallery.php">Galleries</a></li>
-            <li><a href="./blog.php">Blog</a></li>
+            <li><a href="{{ path('app_home') }}">Accueil</a></li>
+            <li><a href="{{ path('galleries') }}">Galleries</a></li>
+            <li><a href="{{ path('blog') }}">Blog</a></li>
             <li><a href="./forum.php">Forum</a></li>
-            <li><a href="./connexion.php">Connexion</a></li>
+            <li><a href="{{ path('app_login') }}">Connexion</a></li>
         </ul>
     </div>
 

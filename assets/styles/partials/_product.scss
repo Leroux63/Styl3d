@@ -1,0 +1,51 @@
+.card-product {
+  text-decoration: none;
+
+  .container-image {
+    position: relative;
+    height: 320px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    transition: all 0.5s ease-out;
+
+    &.low-height {
+      height: 240px;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    > img {
+      cursor: pointer;
+      border-radius: 2rem;
+      height: 100%;
+      width: 100%;
+    }
+    &:hover {
+      transform: scale(1.05);
+      transition: all 0.3s ease-in;
+    }
+    .container-infos {
+      position: absolute;
+      margin-top: 0.5rem;
+      font-weight: 700;
+      text-align: center;
+      //font-size: $card-game-font-size;
+      //color: $card-game-name-color;
+    }
+    //.container-price {
+    //  border-radius: 0.5rem;
+    //  position: absolute;
+    //  left: 5%;
+    //  bottom: -2%;
+    //  padding: 0.2rem 0.6rem;
+    //  //background-color: $card-game-price-color;
+    //  //color: $card-game-name-color;
+    //  //font-size: $card-game-font-size;
+    //  font-weight: 700;
+    //}
+
+  }
+
+
+
+}

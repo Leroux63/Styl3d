@@ -25,13 +25,20 @@ class Product
     #[ORM\ManyToMany(targetEntity: ProductCategory::class, mappedBy: 'products')]
     private Collection $productCategories;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Document::class)]
-    private Collection $documents;
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: File::class, orphanRemoval: true)]
+    private Collection $files;
+
+    #[ORM\Column(length: 255)]
+    private ?string $img = null;
+
+
+
 
     public function __construct()
     {
         $this->productCategories = new ArrayCollection();
-        $this->documents = new ArrayCollection();
+        $this->files = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -91,32 +98,45 @@ class Product
     }
 
     /**
-     * @return Collection<int, Document>
+     * @return Collection<int, File>
      */
-    public function getDocuments(): Collection
+    public function getFiles(): Collection
     {
-        return $this->documents;
+        return $this->files;
     }
 
-    public function addDocument(Document $document): self
+    public function addFile(File $file): self
     {
-        if (!$this->documents->contains($document)) {
-            $this->documents->add($document);
-            $document->setProduct($this);
+        if (!$this->files->contains($file)) {
+            $this->files->add($file);
+            $file->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeDocument(Document $document): self
+    public function removeFile(File $file): self
     {
-        if ($this->documents->removeElement($document)) {
+        if ($this->files->removeElement($file)) {
             // set the owning side to null (unless already changed)
-            if ($document->getProduct() === $this) {
-                $document->setProduct(null);
+            if ($file->getProduct() === $this) {
+                $file->setProduct(null);
             }
         }
 
         return $this;
     }
+
+    public function getImg(): ?string
+    {
+        return $this->img;
+    }
+
+    public function setImg(string $img): self
+    {
+        $this->img = $img;
+
+        return $this;
+    }
+
 }

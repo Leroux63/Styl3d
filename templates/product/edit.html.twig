@@ -4,10 +4,15 @@
 
 {% block body %}
     <h1>Edit Product</h1>
+    {{ form_start(form) }}
+    {{ form_row(form.title) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.productCategories) }}
 
-    {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_product_index') }}">back to list</a>
+    <button type="submit">Soumettre</button>
+    {{ form_end(form) }}
+    <a href="{{ path('app_file_new') }}">Ajouter un fichier</a>
+    <a href="{{ path('app_product_index') }}">Retour liste produits</a>
 
     {{ include('product/_delete_form.html.twig') }}
 {% endblock %}

@@ -3,145 +3,159 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-    <section>
-        <div class="slide_top">
-            <div class="slide_h">
-                <h2 class="slide__h text-center my-2">Sélection Téléchargements</h2>
-            </div>
-            <div class="cards">
-                <div class="card_top">
-                    <h3>corps</h3>
-                    <img src="assets/img/img1.png" alt="">
-                    <a href="./detail.php">Voir</a>
-                </div>
-                <div class="card_top">
-                    <h3>Vase-Déco</h3>
-                    <img src="assets/img/img2.png" alt="">
-                    <a href="./detail.php">Voir</a>
-                </div>
-                <div class="card_top">
-                    <h3>Papillon</h3>
-                    <img src="assets/img/img3.png" alt="">
-                    <a href="./detail.php">Voir</a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="filters">
-            <button>Categories</button>
-            <button>Utilités</button>
-            <button>Univers</button>
-            <button>Créateurs</button>
-            <button>Top STL</button>
-        </div>
-    </section>
-    <section>
-        <div class="title_card_body">
-            <h2 class="title_cards_body my-3">Nouveautés</h2>
-            <h2 class="title_cards_body my-3">Actu 3D</h2>
-        </div>
-        <div class="bodyactu">
-            <div class="cards_body">
-                <div class="card_center">
-                    <h3>Papillon</h3>
-                    <img src="assets/img/img7.png" alt="">
-                    <a href="./detail.php">Voir</a>
-                </div>
-                <div class="card_center">
-                    <h3>Papillon</h3>
-                    <img src="assets/img/img6.png" alt="">
-                    <a href="./detail.php">Voir</a>
-                </div>
-                <div class="card_center">
-                    <h3>Papillon</h3>
-                    <img src="assets/img/img5.png" alt="">
-                    <button>Voir</button>
-                </div>
-                <div class="card_center">
-                    <h3>Papillon</h3>
-                    <img src="assets/img/img.png" alt="">
-                    <a href="./detail.php">Voir</a>
-                </div>
-                <div class="card_center">
-                    <h3>Papillon</h3>
-                    <img src="assets/img/img3.png" alt="">
-                    <a href="./detail.php">Voir</a>
-                </div>
-                <div class="card_center">
-                    <h3>Papillon</h3>
-                    <img src="assets/img/img3.png" alt="">
-                    <a href="./detail.php">Voir</a>
-                </div>
-                <div class="card_center">
-                    <h3>Papillon</h3>
-                    <img src="assets/img/img3.png" alt="">
-                    <a href="./detail.php">Voir</a>
-                </div>
-                <div class="card_center">
-                    <h3>Papillon</h3>
-                    <img src="assets/img/img3.png" alt="">
-                    <a href="./detail.php">Voir</a>
-                </div>
-                <div class="btn_center my-1">
-                    <button class="btn_plus">Voir Plus</button>
-                </div>
-            </div>
+<section class="slide_top">
+    {#        <div class="slide_top"> #}
+    {#            <div class="slide_h"> #}
+    {#                <h2 class="slide__h text-center my-2">Sélection Téléchargements</h2> #}
+    {#            </div> #}
+    {#            <div class="cards"> #}
+    {#              #}
+    {#                    <div class="card_top"> #}
+    {#                        <h3>{{ product.title }}</h3> #}
+    {#                        <img src="{{asset('uploads/img')~ '/'~ product.img }}" alt=""> #}
+    {#                        <a href="./detail.php">Voir</a> #}
+    {#                    </div> #}
+    {#                {% endfor %} #}
+    {#            </div> #}
+    {#        </div> #}
 
-            <div class="actu3d">
-                <h3>Modéliser des pièces</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit itaque temporibus explicabo
-                    magni,
-                    deserunt quaerat illo debitis incidunt unde eaque dolorum aliquam eos ab tenetur dolores. Magnam
-                    deleniti ea rerum molestias corporis veniam numquam assumenda temporibus, voluptatem quam
-                    quibusdam
-                    ipsum adipisci, ab quisquam qui vel possimus aut. Dolore, voluptates doloribus.
-                </p>
-                <a href="">Lire la suite</a>
-                <h3>3d & Droit de la propriété intellectuelle?</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit itaque temporibus explicabo
-                    magni,
-                    deserunt quaerat illo debitis incidunt unde eaque dolorum aliquam eos ab tenetur dolores. Magnam
-                    deleniti ea rerum molestias corporis veniam numquam assumenda temporibus, voluptatem quam
-                    quibusdam
-                    ipsum adipisci, ab quisquam qui vel possimus aut. Dolore, voluptates doloribus.
-                </p>
-                <a href="">Lire la suite</a>
-                <h3>Pourquoi publier mes designs sur Styl 3D?</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit itaque temporibus explicabo
-                    magni,
-                    deserunt quaerat illo debitis incidunt unde eaque dolorum aliquam eos ab tenetur dolores. Magnam
-                    deleniti ea rerum molestias corporis veniam numquam assumenda temporibus, voluptatem quam
-                    quibusdam
-                    ipsum adipisci, ab quisquam qui vel possimus aut. Dolore, voluptates doloribus.
-                </p>
-                <a href="">Lire la suite</a>
-                <h2 class="title_cards_body my-3">Des petits problèmes?Toutes nos astuces</h2>
+    <div class="container">
+
+        <div class="d-flex justify-content">
+            <h2 class="mt-3 mb-4 text-center">Sélection Téléchargements</h2>
+
+        </div>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-lg-4 col-md-6">
+                    {% include 'front/partials/_productCard.html.twig' with {
+                        'product': product
+                    } %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</section>
+<section>
+    <div class="flex-column filters">
+        {% for category in product_categories %}
+            <button><a href="{{ path('app_product_category_show', {'id': category.id}) }}">
+                    {{ category.name }}
+                </a>
+            </button>
+        {% endfor %}
+    </div>
+</section>
+<section>
+    <div class="title_card_body">
+        <h2 class="title_cards_body my-3">Nouveautés</h2>
+        <h2 class="title_cards_body my-3">Actu 3D</h2>
+    </div>
+    <div class="bodyactu">
+        <div class="cards_body">
+            <div class="card_center">
+                <h3>Papillon</h3>
+                <img src="assets/img/img7.png" alt="">
+                <a href="./detail.php">Voir</a>
             </div>
-        </div>
-    </section>
-    <div class="slide_foot">
-        <div class="slide_f">
-            <h2 class="slide_f_title text-center my-2">Sélection Styl3D</h2>
-        </div>
-        <section class="cards_foot">
-            <div class="card_f">
-                <h3>corps</h3>
-                <img src="assets/img/img1.png" alt="">
+            <div class="card_center">
+                <h3>Papillon</h3>
+                <img src="assets/img/img6.png" alt="">
+                <a href="./detail.php">Voir</a>
+            </div>
+            <div class="card_center">
+                <h3>Papillon</h3>
+                <img src="assets/img/img5.png" alt="">
                 <button>Voir</button>
             </div>
-            <div class="card_f">
-                <h3>Vase-Déco</h3>
-                <img src="assets/img/img2.png" alt="">
-                <button>Voir</button>
+            <div class="card_center">
+                <h3>Papillon</h3>
+                <img src="assets/img/img.png" alt="">
+                <a href="./detail.php">Voir</a>
             </div>
-            <div class="card_f">
+            <div class="card_center">
                 <h3>Papillon</h3>
                 <img src="assets/img/img3.png" alt="">
-                <button>Voir</button>
+                <a href="./detail.php">Voir</a>
             </div>
-        </section>
+            <div class="card_center">
+                <h3>Papillon</h3>
+                <img src="assets/img/img3.png" alt="">
+                <a href="./detail.php">Voir</a>
+            </div>
+            <div class="card_center">
+                <h3>Papillon</h3>
+                <img src="assets/img/img3.png" alt="">
+                <a href="./detail.php">Voir</a>
+            </div>
+            <div class="card_center">
+                <h3>Papillon</h3>
+                <img src="assets/img/img3.png" alt="">
+                <a href="./detail.php">Voir</a>
+            </div>
+            <a class="btn btn-primary h-50 my-auto"
+               href="{{ path('app_product_index') }}"
+            >
+                Voir tout
+            </a>
+        </div>
+
+        <div class="actu3d">
+            <h3>Modéliser des pièces</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit itaque temporibus explicabo
+                magni,
+                deserunt quaerat illo debitis incidunt unde eaque dolorum aliquam eos ab tenetur dolores. Magnam
+                deleniti ea rerum molestias corporis veniam numquam assumenda temporibus, voluptatem quam
+                quibusdam
+                ipsum adipisci, ab quisquam qui vel possimus aut. Dolore, voluptates doloribus.
+            </p>
+            <a href="">Lire la suite</a>
+            <h3>3d & Droit de la propriété intellectuelle?</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit itaque temporibus explicabo
+                magni,
+                deserunt quaerat illo debitis incidunt unde eaque dolorum aliquam eos ab tenetur dolores. Magnam
+                deleniti ea rerum molestias corporis veniam numquam assumenda temporibus, voluptatem quam
+                quibusdam
+                ipsum adipisci, ab quisquam qui vel possimus aut. Dolore, voluptates doloribus.
+            </p>
+            <a href="">Lire la suite</a>
+            <h3>Pourquoi publier mes designs sur Styl 3D?</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit itaque temporibus explicabo
+                magni,
+                deserunt quaerat illo debitis incidunt unde eaque dolorum aliquam eos ab tenetur dolores. Magnam
+                deleniti ea rerum molestias corporis veniam numquam assumenda temporibus, voluptatem quam
+                quibusdam
+                ipsum adipisci, ab quisquam qui vel possimus aut. Dolore, voluptates doloribus.
+            </p>
+            <a href="">Lire la suite</a>
+            <h2 class="title_cards_body my-3">Des petits problèmes?Toutes nos astuces</h2>
+        </div>
     </div>
+</section>
+<div class="slide_foot">
+    <div class="slide_f">
+        <h2 class="slide_f_title text-center my-2">Sélection Styl3D</h2>
+    </div>
+    {#        <section class="cards_foot"> #}
+    {#            <div class="card_f"> #}
+    {#                <h3>corps</h3> #}
+    {#                <img src="assets/img/img1.png" alt=""> #}
+    {#                <button>Voir</button> #}
+    {#            </div> #}
+    {#            <div class="card_f"> #}
+    {#                <h3>Vase-Déco</h3> #}
+    {#                <img src="assets/img/img2.png" alt=""> #}
+    {#                <button>Voir</button> #}
+    {#            </div> #}
+    {#            <div class="card_f"> #}
+    {#                <h3>Papillon</h3> #}
+    {#                <img src="assets/img/img3.png" alt=""> #}
+    {#                <button>Voir</button> #}
+    {#            </div> #}
+    {#        </section> #}
+
+
     <section class="info_footer">
         <div class="info_title my-2">
             <h2>LIENS PRODUITS-FOURNITURES</h2>
@@ -162,4 +176,4 @@
             </article>
         </div>
     </section>
-{% endblock %}
+    {% endblock %}

@@ -2,13 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\Document;
+use App\Entity\File;
 use App\Entity\Product;
+use App\Entity\ProductCategory;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Sodium\add;
 
 class ProductType extends AbstractType
 {
@@ -17,18 +19,24 @@ class ProductType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('productCategories')
-            ->add('documents', CollectionType::class, [
-                'entry_type' => Document::class,
-                'prototype' => true,
-               // 'allow_add' => true,
-               // 'allow_delete' => true,
-                'by_reference' => false,
-                'required' => true,
-                'label' => false,
-                'mapped' => false,
-                ]
-   );
+            ->add('productCategories', EntityType::class, [
+                'class' => ProductCategory::class,
+                'choice_label' => 'name',
+                'mapped'=>true,
+                'multiple' => true,
+                'expanded' => true,
+            ])
+            ->add('imageFile',FileType::class,[
+                'mapped'=> false,
+            ])
+            ->add('files',EntityType::class,[
+                'class'=>File::class,
+                'choice_label'=>'id',
+                'multiple' => true,
+                'expanded' => true,
+            ]);
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ArticleCategory{% endblock %}
+
+{% block body %}
+    <h1>Create new ArticleCategory</h1>
+
+    {{ include('article_category/_form.html.twig') }}
+
+    <a href="{{ path('blog') }}">back to list</a>
+{% endblock %}
