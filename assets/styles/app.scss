@@ -1,14 +1,26 @@
-@import '~bootstrap/scss/bootstrap';
-@import "partials/product";
-@import "partials/_filterCatergory.scss";
-//@import "_header.scss";
 $color_dark: #010506;
 $color_white: #eef8f7;
 $color_one: #faab05;
 $color_two: #e35f21;
 $color_three: #2E2E2E;
 
+
 $font_title: "Jacques Francois";
+$font_description: "Nunito Sans";
+
+@import '~bootstrap/scss/bootstrap';
+@import "partials/_filterCatergory.scss";
+@import "./partials/product";
+@import "./partials/slider";
+@import '~swiper/swiper-bundle.css';
+@import 'partials/categoryCard';
+@import "_header.scss";
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: $color_three;
+}
 
 @font-face {
   font-family: "Jacques Francois";

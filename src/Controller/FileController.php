@@ -111,7 +111,7 @@ class FileController extends AbstractController
         return $this->redirectToRoute('app_file_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}/', name: 'app_file_download', methods: ['POST'])]
+    #[Route('/{id}/', name: 'app_file_download', methods: ['GET'])]
     public function downloadFile(string $id,FileRepository $fileRepository): BinaryFileResponse
     {
         $file = $fileRepository->find($id);

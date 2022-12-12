@@ -1,0 +1,21 @@
+.card-category {
+  border-radius: 8px;
+  border: 1px solid $color_dark;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  box-sizing: border-box;
+  width: 300px;
+  height: 300px;
+  transition: all linear 200ms;
+  background-color: $color_one;
+}
+
+.card-category:hover {
+  transform: scale(1.1);
+  transition: all linear 200ms;
+  z-index: 1;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, .3);
+  cursor: pointer;
+}

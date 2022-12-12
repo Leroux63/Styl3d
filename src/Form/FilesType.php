@@ -21,8 +21,7 @@ class FilesType extends AbstractType
             ->add('product', EntityType::class, [
                 'class' => Product::class,
                 'choice_label' => 'title',
-                'multiple' => false,
-                'expanded' => true,
+
 
             ]);
     }

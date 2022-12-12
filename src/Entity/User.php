@@ -29,10 +29,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(type: 'boolean')]
-    private bool $is_verified = false;
-
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 255)]
     private ?string $username = null;
 
     public function getId(): ?int
@@ -58,6 +55,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @see UserInterface
      */
     public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
     {
         return (string) $this->email;
     }
@@ -97,29 +102,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
      * @see UserInterface
      */
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getIsVerified(): ?bool
-    {
-        return $this->is_verified;
-    }
-
-    public function setIsVerified(bool $is_verified): self
-    {
-        $this->is_verified = $is_verified;
-
-        return $this;
-    }
-
-    public function getUsername(): ?string
-    {
-        return $this->username;
     }
 
     public function setUsername(string $username): self

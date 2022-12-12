@@ -1,12 +1,16 @@
-<a class="card-product" href="{{ path('app_product_category_show', {'id': category.id}) }}">
-    <div class="container-image {% if lowHeight is defined %}low-height{% endif %}">
-{#        <img src="{{ asset('uploads/img')~ '/'~ product.img }}" alt="{{ product.title }}">#}
-        {#        <div class="container-price"> #}
-        {#            {{ product.price }}€ #}
-        {#        </div> #}
-        <div class="container-infos">
-            {{ category.name }}
-        </div>
-    </div>
+<a href="{{ path('app_product_category_show', {'id': category.id}) }}">
+    <div class="card-category m-3 ">
 
+        <div class="container-image {% if lowHeight is defined %}low-height{% endif %}">
+            {#        <img src="{{ asset('uploads/img')~ '/'~ product.img }}" alt="{{ product.title }}"> #}
+            {#        <div class="container-price"> #}
+            {#            {{ product.price }}€ #}
+            {#        </div> #}
+            <div class="container-infos">
+                {{ category.name }}
+            </div>
+        </div>
+
+
+    </div>
 </a>

@@ -65,7 +65,8 @@ class ProductController extends AbstractController
                 );
                 $product->setImg($newFileName);
                 $this->entityManager->persist($product);
-                $this->entityManager->flush($product);
+                $this->entityManager->flush();
+                dump($product);
             } catch (\Exception $e) {
 
             }
