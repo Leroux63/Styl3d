@@ -5,8 +5,6 @@ footer {
   flex-direction: row;
   justify-content: space-between;
   background-color: $color_dark;
-  position: sticky;
-
 
   nav {
     width: 100%;
@@ -14,14 +12,18 @@ footer {
     align-items: center;
     justify-content: center;
   }
+
   .foot_nav {
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
+    list-style-type: none;
+    justify-content: center;
 
     a {
       display: flex;
+      margin: 0px 10px 0px 10px;
       flex-direction: row;
       list-style-type: none;
       justify-content: space-between;

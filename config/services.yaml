@@ -6,6 +6,7 @@
 parameters:
     files_directory: '%kernel.project_dir%/public/uploads/files'
     images_directory: '%kernel.project_dir%/public/uploads/img'
+    files_extract-directory: '%kernel.project_dir%/public/uploads/file_decompressed'
 services:
     # default configuration for services in *this* file
     _defaults:

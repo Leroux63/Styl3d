@@ -74,6 +74,6 @@ class ProductCategoryController extends AbstractController
             $productCategoryRepository->remove($productCategory, true);
         }
 
-        return $this->redirectToRoute('app_product_category_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('galleries', [], Response::HTTP_SEE_OTHER);
     }
 }

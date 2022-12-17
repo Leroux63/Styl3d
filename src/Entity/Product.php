@@ -25,11 +25,19 @@ class Product
     #[ORM\ManyToMany(targetEntity: ProductCategory::class, mappedBy: 'products')]
     private Collection $productCategories;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: File::class, orphanRemoval: true)]
-    private Collection $files;
-
     #[ORM\Column(length: 255)]
-    private ?string $img = null;
+    private ?string $fileZip = null;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Images::class, cascade: ['persist'], orphanRemoval: true)]
+    private Collection $images;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
+
 
 
 
@@ -37,7 +45,8 @@ class Product
     public function __construct()
     {
         $this->productCategories = new ArrayCollection();
-        $this->files = new ArrayCollection();
+        $this->images = new ArrayCollection();
+
 
     }
 
@@ -97,46 +106,73 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection<int, File>
-     */
-    public function getFiles(): Collection
+    public function getFileZip(): ?string
     {
-        return $this->files;
+        return $this->fileZip;
     }
 
-    public function addFile(File $file): self
+    public function setFileZip(string $fileZip): self
     {
-        if (!$this->files->contains($file)) {
-            $this->files->add($file);
-            $file->setProduct($this);
+        $this->fileZip = $fileZip;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Images>
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setProduct($this);
         }
 
         return $this;
     }
 
-    public function removeFile(File $file): self
+    public function removeImage(Images $image): self
     {
-        if ($this->files->removeElement($file)) {
+        if ($this->images->removeElement($image)) {
             // set the owning side to null (unless already changed)
-            if ($file->getProduct() === $this) {
-                $file->setProduct(null);
+            if ($image->getProduct() === $this) {
+                $image->setProduct(null);
             }
         }
 
         return $this;
     }
 
-    public function getImg(): ?string
+    public function getUser(): ?User
     {
-        return $this->img;
+        return $this->user;
     }
 
-    public function setImg(string $img): self
+    public function setUser(?User $user): self
     {
-        $this->img = $img;
+        $this->user = $user;
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $createdAt = new \DateTime('now');
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+
 
 }

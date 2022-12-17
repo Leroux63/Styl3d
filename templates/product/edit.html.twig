@@ -8,11 +8,20 @@
     {{ form_row(form.title) }}
     {{ form_row(form.description) }}
     {{ form_row(form.productCategories) }}
-
+    {% for image in product.images %}
+        <div>
+            <img src="{{ asset('/uploads/img/' ~ image.name) }}" alt="Image" width="150">
+            <a href="{{ path('app_image_delete',{'id': image.id}) }}"
+               data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
+        </div>
+    {% endfor %}
     <button type="submit">Soumettre</button>
     {{ form_end(form) }}
-    <a href="{{ path('app_file_new') }}">Ajouter un fichier</a>
+
     <a href="{{ path('app_product_index') }}">Retour liste produits</a>
 
     {{ include('product/_delete_form.html.twig') }}
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/images.js') }}"></script>
 {% endblock %}

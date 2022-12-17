@@ -18,7 +18,7 @@
         </tbody>
     </table>
     <a href="{{ asset('uploads/files/' ~ file.name) }}" download>Télécharger</a>
-
+    <a href="{{ path('app_file_extract', {'id': file.id}) }}">Extraire fichiers</a>
     <a href="{{ path('app_file_index') }}">back to list</a>
 
     <a href="{{ path('app_file_edit', {'id': file.id}) }}">edit</a>

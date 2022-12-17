@@ -3,11 +3,40 @@
 {% block title %}New Product{% endblock %}
 
 {% block body %}
-    <h1>Create new Product</h1>
-    {{ form_start(form) }}
-    {{ form_row(form.title) }}
-    {{ form_row(form.description) }}
-    {{ form_row(form.productCategories) }}
-    <button type="submit">Soumettre</button>
-    {{ form_end(form) }}
+    <h2>Ajouter un nouveau produit</h2>
+    <div class="container-fluid formProduct">
+        <div class="formProduct">
+            <div class="col-8 col-md-4">
+
+                {{ form_start(form) }}
+
+                <div class="row">
+                    {{ form_row(form.title) }}
+                    {{ form_row(form.description) }}
+                    <div class="col-12 mb-4">
+                        {{ form_row(form.productCategories) }}
+                    </div>
+                    <div class="col-12 mb-4">
+                        {{ form_widget(form.user, { 'attr' : { 'style':'display:none'} }) }}
+                    </div>
+                    <div class="col-12 mb-4">
+                        {{ form_widget(form.createdAt, { 'attr' : { 'style':'display:none'} }) }}
+                    </div>
+                    <div class="col-12 mb-4">
+                        {{ form_row(form.fileZip) }}
+                    </div>
+                    <div class="col-12 mb-4">
+                        {{ form_row(form.images) }}
+                    </div>
+                    <div class="col-12 d-flex justify-content-end pt-5">
+                        <button type="submit">Ajouter</button>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+
+
 {% endblock %}

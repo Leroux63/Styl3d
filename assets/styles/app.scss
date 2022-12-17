@@ -9,11 +9,12 @@ $font_title: "Jacques Francois";
 $font_description: "Nunito Sans";
 
 @import '~bootstrap/scss/bootstrap';
-@import "partials/_filterCatergory.scss";
+@import "./partials/_filterCatergory.scss";
 @import "./partials/product";
 @import "./partials/slider";
 @import '~swiper/swiper-bundle.css';
-@import 'partials/categoryCard';
+@import './partials/categoryCard';
+@import "./partials/articleCategory";
 @import "_header.scss";
 
 body {
@@ -21,7 +22,21 @@ body {
   height: 100vh;
   background-color: $color_three;
 }
-
+.container-fluid{
+  height: 70vh !important;
+}
+h2 {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-family: $font_title;
+  width: 40%;
+  color: $color_dark;
+  border: 2px solid $color_one;
+  border-radius: 20px;
+  background-color: $color_two;
+  padding: 5px;
+}
 @font-face {
   font-family: "Jacques Francois";
   src: url("../fonts/JacquesFrancois-Regular.eot");
