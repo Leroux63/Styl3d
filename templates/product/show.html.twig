@@ -7,25 +7,93 @@
         <h2 class="title_cards_body">{{ product.title }}</h2>
     </div>
     <div class="container">
+        {#   #}
+
+
         <div class="row">
             <div class="col-8">
-{#                <img src="{{ asset('uploads/img')~ '/'~ product.img }}"#}
-                     class="img-fluid img-thumbnail rounded mx-auto d-block"
-                     alt="{{ product.title }}"
-                />
+                <section class="carouselProduct">
+                    <button class="slider-button slider-button-prev" data-slide-direction="prev">&#8592</button>
+                    <button class="slider-button slider-button-next" data-slide-direction="next">&#8594</button>
+                    <ul class="slides">
+                      
+                            <li class="slide" data-active-slide>
+                                <img src="{{ asset('build/images/logo.41a507cc.png') }}" alt="">
+
+                            </li>
+                      
+                        {% for image in product.images %}
+
+
+
+
+
+
+                            <li class="slide">
+                                <img src="{{ asset('/uploads/img/' ~ image.name) }}"
+                                     class="d-block w-100" alt="Image" width="400px">
+                            </li>
+
+                        {% endfor %}
+
+                    </ul>
+{#                    <div class="slides-circles">#}
+{#                        <div data-active-slide></div>#}
+{#                        <div></div>#}
+{#                        <div></div>#}
+{#                    </div>#}
+                </section>
+
 
             </div>
+
+
             <div class="col-4">
                 <div class="d-flex justify-content-evenly mt-3">
-                    <h2 class="">Détails</h2>
+                    <h2 class="">Description</h2>
                 </div>
                 {{ product.description }}
             </div>
         </div>
+
     </div>
-{#    <a href="{{ path('app_product_category_show', {'id': product.productCategories.id}) }}">{{ product.productCategories.name }}</a>#}
+    {#    <a href="{{ path('app_product_category_show', {'id': product.productCategories.id}) }}">{{ product.productCategories.name }}</a> #}
 
     <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
 
     {{ include('product/_delete_form.html.twig') }}
+    {% block javascripts %}
+        <script>
+            const buttons = document.querySelectorAll("[data-slide-direction]");
+
+            buttons.forEach((button) => {
+                button.addEventListener("click", () => {
+                    const offset = button.dataset.slideDirection === "next" ? 1 : -1;
+                    changeSlide(offset);
+                });
+            });
+
+            const changeSlide = (offset) => {
+                const slides = document.querySelector(".slides");
+                const activeSlide = slides.querySelector("[data-active-slide]");
+                let newIndex = [...slides.children].indexOf(activeSlide) + offset;
+                newIndex =
+                    newIndex < 0
+                        ? slides.children.length - 1
+                        : newIndex === slides.children.length
+                            ? 0
+                            : newIndex;
+                slides.children[newIndex].dataset.activeSlide = true;
+                delete activeSlide.dataset.activeSlide;
+
+                const circles = document.querySelector(".slides-circles");
+                const activeCircle = circles.querySelector("[data-active-slide]");
+                circles.children[newIndex].dataset.activeSlide = true;
+                delete activeCircle.dataset.activeSlide;
+            };
+
+            setInterval(changeSlide.bind(null, 1), 6000);
+
+        </script>
+    {% endblock %}
 {% endblock %}

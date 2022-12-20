@@ -119,28 +119,30 @@ class ProductController extends AbstractController
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
     {
+        //on vérifie si l'utilisateur peut éditer avec le voter
+        $this->denyAccessUnlessGranted('PRODUCT_EDIT',$product);
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             //on récupère les images
             $images = $form->get('images')->getData();
-            //on boucle sur les images
-//            foreach($images as $image) {
-//                //on génère un nom unique de fichier
-//                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
-//                //on copie le fichier dans le dossier upload images
-//                $image->move(
-//                    $this->getParameter('images_directory'),
-//                    $fichier
-//                );
-//                //on stocke le nom de l'image dans la base de données
-//                $img = new Images();
-//                $img->setName($fichier);
-//                $this->entityManager->persist($img);
-//                $this->entityManager->flush();
-//                $product->addImage($img);
-//            }
+          //  on boucle sur les images
+            foreach($images as $image) {
+                //on génère un nom unique de fichier
+                $fichier = md5(uniqid()) . '.' . $image->guessExtension();
+                //on copie le fichier dans le dossier upload images
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+                //on stocke le nom de l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $this->entityManager->persist($img);
+                $this->entityManager->flush();
+                $product->addImage($img);
+            }
             $productRepository->save($product, true);
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
@@ -156,6 +158,15 @@ class ProductController extends AbstractController
     public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
+            $images=$product->getImages();
+            $productFile = $product->getFileZip();
+            foreach($images as $image) {
+                //on récupère le nom de l'image
+                $name = $image->getName();
+                //on supprime le fichier
+                unlink($this->getParameter('images_directory') . '/' . $name);
+            }
+            unlink($this->getParameter('files_directory').'/'. $productFile);
             $productRepository->remove($product, true);
         }
 

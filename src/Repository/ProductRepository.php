@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Images;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -39,6 +40,19 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function getTheFirstImageByProduct(): Images
+    {
+        return $this->createQueryBuilder('p')
+
+            ->addSelect('COUNT(i.id) as HIDDEN nbImage')
+            ->join('p.images','p')
+            ->groupBy('i.id')
+            ->orderBy('p.images', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Product[] Returns an array of Product objects
 //     */

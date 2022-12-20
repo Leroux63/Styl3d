@@ -1,0 +1,21 @@
+
+
+.swiper-slide {
+  text-align: center;
+}
+
+.detailProduct {
+  height: 600px;
+  border-radius: 4px;
+}
+
+@media(max-width: 600px) {
+  img {
+    height: 300px;
+  }
+
+  .btn {
+    top: 35%;
+    padding: 0px;
+  }
+}

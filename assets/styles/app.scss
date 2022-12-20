@@ -8,35 +8,44 @@ $color_three: #2E2E2E;
 $font_title: "Jacques Francois";
 $font_description: "Nunito Sans";
 
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 @import "./partials/_filterCatergory.scss";
-@import "./partials/product";
-@import "./partials/slider";
-@import '~swiper/swiper-bundle.css';
-@import './partials/categoryCard';
-@import "./partials/articleCategory";
+@import "./partials/_product.scss";
+@import "./partials/_slider.scss";
+//@import '~swiper/swiper-bundle.css';
+@import './partials/_categoryCard.scss';
+@import "./partials/_articleCategory.scss";
 @import "_header.scss";
-
+@import "_productShow.scss";
+@import "_detailsProduct.scss";
+@import "./partials/_scrollicon.scss";
 body {
   width: 100vw;
   height: 100vh;
-  background-color: $color_three;
+  background-color: $color_white;
 }
-.container-fluid{
+
+.container-fluid {
   height: 70vh !important;
+}
+
+p {
+  font-family: $font_description;
+}
+h3 {
+  font-family: $font_title;
 }
 h2 {
   display: flex;
   flex-direction: column;
   text-align: center;
   font-family: $font_title;
-  width: 40%;
   color: $color_dark;
-  border: 2px solid $color_one;
   border-radius: 20px;
   background-color: $color_two;
-  padding: 5px;
+  padding: 10px;
 }
+
 @font-face {
   font-family: "Jacques Francois";
   src: url("../fonts/JacquesFrancois-Regular.eot");

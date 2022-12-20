@@ -19,7 +19,13 @@
                                 <span class="overlay"></span>
 
                                 <div class="card-image">
-                                    {#                                    <img src="{{ asset('uploads/img')~ '/'~ product.img }}" alt="{{ product.title }}"> #}
+                                    {% for image in product.images |slice(0,1) %}
+                                        <div>
+                                            <img src="{{ asset('/uploads/img/' ~ image.name) }}" alt="Image" width="300"
+                                                 height="300">
+
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
 
@@ -37,7 +43,6 @@
                 </div>
 
             </div>
-
             {% if app.user %}
                 {{ user.getuserName() }}
 
@@ -45,7 +50,7 @@
             <div class="swiper-button-next swiper-navBtn">
             </div>
             <div class="swiper-button-prev swiper-navBtn">
-                <button></button>
+
             </div>
             <div class="swiper-pagination"></div>
         </div>
@@ -61,6 +66,29 @@
         </ul>
     </section>
 
+
+
+
+    {#                    <div class="mt-3 row row-cols-1 row-cols-md-4 d-flex justify-content-around"> #}
+    {#                        {% for product in products %} #}
+    {#                            <div class="card productHome m-2"> #}
+    {#                                {% for image in product.images |slice(0,1) %} #}
+    {#                                    <div class="image-box"> #}
+    {#                                        <img src="{{ asset('/uploads/img/' ~ image.name) }}" class="" #}
+    {#                                             alt="{{ product.title }}"> #}
+
+    {#                                    </div> #}
+    {#                                {% endfor %} #}
+
+
+    {#                                <h3>{{ product.title }}</h3> #}
+    {#                                <p>{{ product.description }}</p> #}
+    {#                                <button> #}
+    {#                                    <a href="{{ path('app_product_show', {'id': product.id}) }}">Détails</a> #}
+    {#                                </button> #}
+    {#                            </div> #}
+    {#                        {% endfor %} #}
+    {#                    </div> #}
     <section>
         <div class="container">
             <div class="row">
@@ -68,27 +96,35 @@
                     <div class="d-flex justify-content-evenly mt-3">
                         <h2 class="title_cards_body">Nouveautés</h2>
                     </div>
+                    <!-- Topic Cards -->
+                    <div id="cards_landscape_wrap-2">
+                        <div class="mt-3 row row-cols-1 row-cols-md-4 d-flex justify-content-around">
+                            {#                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> #}
+                            {% for product in products %}
+                                <a href="{{ path('app_product_show', {'id': product.id}) }}">
+                                    <div class="card-flyer">
+                                        <div class="text-box">
+                                            {% for image in product.images |slice(0,1) %}
+                                                <div class="image-box">
+                                                    <img src="{{ asset('/uploads/img/' ~ image.name) }}"
+                                                         class=""
+                                                         alt="{{ product.title }}">
+                                                </div>
+                                            {% endfor %}
+                                            <div class="text-container">
+                                                <h6>{{ product.title }}</h6>
+                                                <p>{{ product.description }}</p>
+                                            </div>
 
-
-                    <div class="mt-3 row row-cols-1 row-cols-md-4 d-flex justify-content-around">
-                        {% for product in products %}
-                            <div class="card m-2">
-                                {#                                <img src="{{ asset('uploads/img')~ '/'~ product.img }}" #}
-                                class="img-fluid img-thumbnail rounded mx-auto d-block"
-                                alt="{{ product.title }}"
-                                />
-                                <h6>{{ product.title }}</h6>
-                                <p>{{ product.description }}</p>
-                                <button>
-                                    <a href="{{ path('app_product_show', {'id': product.id}) }}">Détails</a>
-                                </button>
-                            </div>
-                        {% endfor %}
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
                     </div>
+
                 </div>
-
-
-                <div class="col-md-4">
+                <div class="actuHome col-md-4 ">
                     <div class="d-flex justify-content-evenly mt-3">
                         <h2 class="title_cards_body">Actu 3D</h2>
                     </div>
@@ -137,22 +173,51 @@
             <div class="d-flex justify-content-center ">
                 <h2 class="slide_f_title text-center my-2">Sélection Styl3D</h2>
             </div>
-            <div class="cards_foot">
-                <div class="card_f">
-                    <h3>corps</h3>
-                    <img src="assets/img/img1.png" alt="">
-                    <button>Voir</button>
+            <div class="slide-container swiper">
+
+                <div class="slide-content">
+
+                    <div class="card-wrapper swiper-wrapper">
+                        {% for product in products %}
+                            <div class="card swiper-slide">
+                                <div class="image-content">
+                                    <span class="overlay"></span>
+
+                                    <div class="card-image">
+                                        {% for image in product.images |slice(0,1) %}
+                                            <div>
+                                                <img src="{{ asset('/uploads/img/' ~ image.name) }}" alt="Image"
+                                                     width="300" height="300">
+
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="card-content">
+                                    <h2 class="name">   {{ product.title }}</h2>
+                                    <p class="description">
+                                        {{ product.description }}
+                                    </p>
+
+                                    <button class="button"><a href="{{ path('app_product_show', {'id': product.id}) }}">Détails</a>
+                                    </button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
                 </div>
-                <div class="card_f">
-                    <h3>Vase-Déco</h3>
-                    <img src="assets/img/img2.png" alt="">
-                    <button>Voir</button>
+                {% if app.user %}
+                    {{ user.getuserName() }}
+
+                {% endif %}
+                <div class="swiper-button-next swiper-navBtn">
                 </div>
-                <div class="card_f">
-                    <h3>Papillon</h3>
-                    <img src="assets/img/img3.png" alt="">
-                    <button>Voir</button>
+                <div class="swiper-button-prev swiper-navBtn">
+
                 </div>
+                <div class="swiper-pagination"></div>
             </div>
         </div>
     </section>

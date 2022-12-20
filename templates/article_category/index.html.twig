@@ -3,33 +3,44 @@
 {% block title %}ArticleCategory index{% endblock %}
 
 {% block body %}
-    <div class="d-flex justify-content-center ">
-        <h2 class="mt-3">Le Blog</h2>
+
+    <section id="number1">
+        <div class="d-flex justify-content-center ">
+            <h2 class="mt-3">Le Blog</h2>
+        </div>
+        <div class="container-fluid">
+{#            {% for article_category in article_categories %}#}
+{#                <div class="card bg-dark text-white">#}
+{#                    <img class="card-img" src="{{ '../images/categBlog1.jpg' }}" alt="Card image">#}
+{#                    <div class="card-img-overlay">#}
+{#                        <h5 class="card-title"> {{ article_category.name }}</h5>#}
+{#                        #}{#                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to #}
+{#                        #}{#                        additional content. This content is a little bit longer.</p> #}
+{#                        <p class="card-text">Last updated 3 mins ago</p>#}
+{#                        <a href="{{ path('app_article_category_show', {'id': article_category.id}) }}">show</a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <a href="{{ path('app_article_category_edit', {'id': article_category.id}) }}">edit</a>#}
+{#                <a href="{{ path('app_article_category_new') }}">Create new</a>#}
+{#            {% else %}#}
+
+{#                <td colspan="3">no records found</td>#}
+
+{#            {% endfor %}#}
+        </div>
+    </section >
+    <section id="number2">
+        <h2>HELLO TWO</h2>
+    </section>
+    <section id="number3">
+<h2>HELLO THREE</h2>
+    </section>
+
+    <div class="scroll-icons">
+{#        <div class="circle"></div>#}
+{#        <div class="circle"></div>#}
+{#        <div class="circle"></div>#}
     </div>
-    <div class="container-fluid">
-        {% for article_category in article_categories %}
-            <div class="card bg-dark text-white">
-                <img class="card-img" src="{{ asset('build/images/categBlog1.jpg') }}" alt="Card image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title"> {{ article_category.name }}</h5>
-{#                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to#}
-{#                        additional content. This content is a little bit longer.</p>#}
-                    <p class="card-text">Last updated 3 mins ago</p>
-                    <a href="{{ path('app_article_category_show', {'id': article_category.id}) }}">show</a>
-                </div>
-            </div>
-            <a href="{{ path('app_article_category_edit', {'id': article_category.id}) }}">edit</a>
-            <a href="{{ path('app_article_category_new') }}">Create new</a>
-        {% else %}
-
-            <td colspan="3">no records found</td>
-
-        {% endfor %}
-    </div>
-
-
-
-
 
 
 {% endblock %}

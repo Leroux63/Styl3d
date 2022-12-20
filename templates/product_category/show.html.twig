@@ -9,14 +9,16 @@
             <div class="d-flex justify-content-evenly mt-3">
                 <h2 class="title_cards_body">{{ product_category.name }}</h2>
             </div>
-            <div class="mt-3 row row-cols-1 row-cols-md-4 d-flex justify-content-around">
-                {% for product in product_category.products %}
-                    {% include 'front/partials/_productCard.html.twig' with {
-                        'card-product': product
-                    } %}
+            <div id="cards_landscape_wrap-2">
+                <div class="mt-3 row row-cols-1 row-cols-md-4 d-flex justify-content-around">
+                    {% for product in product_category.products %}
+                        {% include 'front/partials/_productCard.html.twig' with {
+                            'card-product': product
+                        } %}
 
 
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>

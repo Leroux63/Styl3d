@@ -1,15 +1,18 @@
+<a href="{{ path('app_product_show', {'id': product.id}) }}">
+    <div class="card-flyer">
+        <div class="text-box">
+            {% for image in product.images |slice(0,1) %}
+                <div class="image-box">
+                    <img src="{{ asset('/uploads/img/' ~ image.name) }}"
+                         class=""
+                         alt="{{ product.title }}">
+                </div>
+            {% endfor %}
+            <div class="text-container">
+                <h6>{{ product.title }}</h6>
+                <p>{{ product.description }}</p>
+            </div>
 
-    <div class="card m-3">
-        <a class="card-product" href="{{ path('app_product_show', {'id': product.id}) }}">
-        <img src="{{ asset('uploads/img')~ '/'~ product.img }}"
-             class="img-fluid img-thumbnail rounded mx-auto d-block"
-             alt="{{ product.title }}"
-        />
-        <h6>{{ product.title }}</h6>
-        <p>{{ product.description }}</p>
-        <button>
-            <a href="{{ path('app_product_show', {'id': product.id}) }}">Détails</a>
-        </button>
-        </a>
+        </div>
     </div>
-
+</a>

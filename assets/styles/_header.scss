@@ -48,6 +48,9 @@ header {
     font-size: 20px;
     padding: 5px;
   }
+  a:hover{
+    background-color: $color_one;
+  }
 }
 
 h1 {
@@ -119,7 +122,8 @@ h1 {
   }
 
   .sidenav a:hover {
-    color: $color_white;
+    color: $color_dark;
+    background-color: $color_one;
   }
 
   .sidenav ul {

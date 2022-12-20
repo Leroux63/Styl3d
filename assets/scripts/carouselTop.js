@@ -1,7 +1,9 @@
-import {Swiper} from "swiper";
-
+import Swiper from 'swiper/bundle';
 
 const swiper = new Swiper(".slide-content", {
+    autoplay: {
+        delay: 2000,
+    },
     slidesPerView: 3,
     spaceBetween: 25,
     loop: true,
@@ -11,11 +13,10 @@ const swiper = new Swiper(".slide-content", {
     pagination: {
         el: ".swiper-pagination",
         clickable: true,
-        dynamicBullets: true,
     },
     navigation: {
-        nextEl: ".swiper-button-next swiper-navBtn",
-        prevEl: ".swiper-button-prev swiper-navBtn",
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
     },
 
     breakpoints:{
@@ -29,4 +30,5 @@ const swiper = new Swiper(".slide-content", {
             slidesPerView: 3,
         },
     },
+
 });
