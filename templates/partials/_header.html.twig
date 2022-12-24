@@ -1,6 +1,6 @@
 <header class="main-header box-shadow">
 
-    <p class="logo" ></p>
+    <p class="logo"></p>
     <h1 class="header_title text-center">Imprimez toutes vos envies!</h1>
     <nav class="headerNav">
         <ul class="head_nav px-2">
@@ -10,10 +10,12 @@
             <li><a href="./forum.php">Forum</a></li>
             {% if app.user %}
                 <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_user', {'id': app.user.id}) }}">Mon
+                        Compte</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}">Déconnexion</a>
                 </li>
-
-
             {% else %}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ path('app_register') }}">Inscription</a>
@@ -27,13 +29,28 @@
         </ul>
     </nav>
     <div id="mySidenav" class="sidenav">
-        <a id="closeBtn" href="#" class="close">×</a>
+
         <ul>
             <li><a href="{{ path('app_home') }}">Accueil</a></li>
             <li><a href="{{ path('galleries') }}">Galleries</a></li>
             <li><a href="{{ path('blog') }}">Blog</a></li>
             <li><a href="./forum.php">Forum</a></li>
-            <li><a href="{{ path('app_login') }}">Connexion</a></li>
+            {% if app.user %}
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link active" aria-current="page" href="{{ path('app_user', {'id': user.id}) }}">Mon#}
+{#                        Compte</a>#}
+{#                </li>#}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_logout') }}">Déconnexion</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_register') }}">Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_login') }}">Connection</a>
+                </li>
+            {% endif %}
         </ul>
     </div>
 

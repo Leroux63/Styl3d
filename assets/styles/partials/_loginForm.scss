@@ -1,0 +1,22 @@
+.loginForm{
+  display: flex;
+  flex-direction: column;
+  border: 5px solid $color_two;
+  border-radius: 8px;
+  padding: 5%;
+  background-color: $color_white;
+  margin-top: 10%;
+  margin-bottom: 5%;
+
+  label{
+    text-align: center;
+    font-family: $font_title;
+  }
+  input{
+    margin: 2%;
+  }
+  .submitBtn{
+    display: flex;
+    justify-content: center;
+  }
+}

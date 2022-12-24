@@ -16,9 +16,11 @@ class ProductCategoryController extends AbstractController
     #[Route('/', name: 'galleries', methods: ['GET'])]
     public function index(ProductCategoryRepository $productCategoryRepository): Response
     {
+        $user = $this->getUser();
         $productCategories = $productCategoryRepository->findAll();
         return $this->render('product_category/index.html.twig', [
             'product_categories' => $productCategories,
+            'user' => $user,
         ]);
     }
 
@@ -44,8 +46,10 @@ class ProductCategoryController extends AbstractController
     #[Route('/{id}', name: 'app_product_category_show', methods: ['GET'])]
     public function show(ProductCategory $productCategory): Response
     {
+        $user = $this->getUser();
         return $this->render('product_category/show.html.twig', [
             'product_category' => $productCategory,
+            'user'=> $user,
         ]);
     }
 

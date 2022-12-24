@@ -1,0 +1,22 @@
+.myFormComment{
+  display: none;
+}
+.active{
+  display: block;
+}
+.commentsProduct {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment {
+  margin-top: 5px;
+  padding: 5px;
+  border: 1px solid $color_dark;
+  border-radius: 10px;
+  background-color: $color_one;
+
+  p {
+    margin: 5px;
+  }
+}

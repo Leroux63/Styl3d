@@ -12,6 +12,9 @@ $font_description: "Nunito Sans";
 @import "./partials/_filterCatergory.scss";
 @import "./partials/_product.scss";
 @import "./partials/_slider.scss";
+@import "./partials/_formProduct.scss";
+@import "./partials/_editProduct.scss";
+@import "./partials/_comment.scss";
 //@import '~swiper/swiper-bundle.css';
 @import './partials/_categoryCard.scss';
 @import "./partials/_articleCategory.scss";
@@ -19,12 +22,17 @@ $font_description: "Nunito Sans";
 @import "_productShow.scss";
 @import "_detailsProduct.scss";
 @import "./partials/_scrollicon.scss";
+@import "./partials/_loginForm.scss";
 body {
   width: 100vw;
-  height: 100vh;
   background-color: $color_white;
 }
-
+.container{
+  min-height: 75vh;
+}
+.login{
+  min-height: 75vh;
+}
 .container-fluid {
   height: 70vh !important;
 }

@@ -15,3 +15,4 @@ import './scripts/header.js';
 import './scripts/carouselTop.js';
 import './scripts/imagesProduct.js';
 import './scripts/scrollSpy';
+import './scripts/addComment';

@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Comments;
 use App\Entity\Images;
 use App\Entity\Product;
+use App\Entity\Rating;
 use App\Entity\User;
+use App\Form\CommentsType;
 use App\Form\ProductType;
+use App\Form\RatingType;
 use App\Repository\ProductRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +22,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
-
 
 
 #[Route('/product')]
@@ -40,9 +43,11 @@ class ProductController extends AbstractController
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
     {
+
         $products = $productRepository->findAll();
         return $this->render('product/index.html.twig', [
             'products' => $products,
+
         ]);
     }
 
@@ -104,31 +109,30 @@ class ProductController extends AbstractController
         return $this->render('product/new.html.twig', [
             'form' => $form->createView(),
             'controller_name' => 'ProductController',
-            'user'=> $user,
+            'user' => $user,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
-    public function show(Product $product): Response
-    {
-        return $this->render('product/show.html.twig', [
-            'product' => $product,
-        ]);
-    }
+
 
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, ProductRepository $productRepository): Response
+    public function edit(int $id, Request $request, Product $product, ProductRepository $productRepository): Response
     {
         //on vérifie si l'utilisateur peut éditer avec le voter
-        $this->denyAccessUnlessGranted('PRODUCT_EDIT',$product);
+
+//        $this->denyAccessUnlessGranted('PRODUCT_EDIT', $product);
+
+        $product = $productRepository->find($id);
+        $user = $this->getUser();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //on récupère les images
+
+//            on récupère les images
             $images = $form->get('images')->getData();
-          //  on boucle sur les images
-            foreach($images as $image) {
+//            on boucle sur les images
+            foreach ($images as $image) {
                 //on génère un nom unique de fichier
                 $fichier = md5(uniqid()) . '.' . $image->guessExtension();
                 //on copie le fichier dans le dossier upload images
@@ -139,18 +143,21 @@ class ProductController extends AbstractController
                 //on stocke le nom de l'image dans la base de données
                 $img = new Images();
                 $img->setName($fichier);
-                $this->entityManager->persist($img);
-                $this->entityManager->flush();
                 $product->addImage($img);
-            }
-            $productRepository->save($product, true);
+                $this->entityManager->persist($img);
 
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+
+            }
+            $this->entityManager->flush();
+            dump($product);
+
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('product/edit.html.twig', [
             'product' => $product,
             'form' => $form,
+            'user'=> $user,
         ]);
     }
 
@@ -158,23 +165,27 @@ class ProductController extends AbstractController
     public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
-            $images=$product->getImages();
+            $images = $product->getImages();
             $productFile = $product->getFileZip();
-            foreach($images as $image) {
+
+            foreach ($images as $image) {
+                dump($image);
                 //on récupère le nom de l'image
                 $name = $image->getName();
                 //on supprime le fichier
                 unlink($this->getParameter('images_directory') . '/' . $name);
+
             }
-            unlink($this->getParameter('files_directory').'/'. $productFile);
+            unlink($this->getParameter('files_directory') . '/' . $productFile);
             $productRepository->remove($product, true);
+
         }
 
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/image/{id}/delete', name: 'app_image_delete', methods: ['DELETE'])]
-    public function deleteImage(Images $image, Request $request, EntityManagerInterface $entityManager)
+    public function deleteImage(Images $image, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         //on vérifie si le token est valide
@@ -195,5 +206,46 @@ class ProductController extends AbstractController
         } else {
             return new JsonResponse(['error' => 'Token Invalide'], 400);
         }
+    }
+
+    #[Route('/{id}', name: 'app_product_show', methods: ['GET','POST'])]
+    public function show(Request $request,Product $product,ProductRepository $productRepository): Response
+    {
+        $getAvgByProduct=$productRepository->getAverageRatingByProduct();
+        $user = $this->getUser();
+        //partie commentaire
+        $comment = new Comments();
+        $score = new Rating();
+        //on génère les formulaires
+        $commentForm=$this->createForm(CommentsType::class,$comment);
+        $commentForm->handleRequest($request);
+
+        $scoreForm=$this->createForm(RatingType::class,$score);
+        $scoreForm->handleRequest($request);
+
+        //traitement formulaire
+        if ($commentForm->isSubmitted() && $commentForm->isValid()){
+            $comment->setProduct($product);
+            $comment->setUser($user);
+            $this->entityManager->persist($comment);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('galleries', [], Response::HTTP_SEE_OTHER);
+        }
+        if ($scoreForm->isSubmitted() && $scoreForm->isValid()){
+            $score->setProduct($product);
+            $score->setUser($user);
+            $this->entityManager->persist($score);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('galleries', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('product/show.html.twig', [
+            'product' => $product,
+            'user' => $user,
+            'commentForm'=>$commentForm->createView(),
+            'scoreForm'=>$scoreForm->createView(),
+            'getAvgByProduct'=>$getAvgByProduct,
+        ]);
+
     }
 }

@@ -44,7 +44,7 @@
 
             </div>
             {% if app.user %}
-                {{ user.getuserName() }}
+                {{ app.user.getuserName() }}
 
             {% endif %}
             <div class="swiper-button-next swiper-navBtn">
@@ -208,10 +208,10 @@
                     </div>
 
                 </div>
-                {% if app.user %}
-                    {{ user.getuserName() }}
+{#                {% if app.user %}#}
+{#                    {{ app.user.getuserName() }}#}
 
-                {% endif %}
+{#                {% endif %}#}
                 <div class="swiper-button-next swiper-navBtn">
                 </div>
                 <div class="swiper-button-prev swiper-navBtn">

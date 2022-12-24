@@ -1,0 +1,29 @@
+.formProduct {
+  display: flex;
+  justify-content: center;
+
+  .row {
+    border: 5px solid $color_two;
+    border-radius: 10px;
+    background-color: $color_white;
+  }
+
+  label {
+    font-family: $font_title;
+    margin-right: 10px;
+  }
+
+  .imagesProduct {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    .imgProduct {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-evenly;
+
+    }
+  }
+}

@@ -1,0 +1,5 @@
+<div class="comment">
+    <span>Publié par <strong>{{ comment.user.userIdentifier }}</strong>
+        le {{ comment.createdAt|date('d-m-Y H:i:s') }}</span>
+    <p>{{ comment.content }}</p>
+</div>

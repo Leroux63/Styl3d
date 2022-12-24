@@ -13,7 +13,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ProductRepository $productRepository, ProductCategoryRepository $productCategoryRepository): Response
     {
-        $user = $this->getUser();
+
 //        $theFirstImageByProduct = $productRepository->getTheFirstImageByProduct();
         $products = $productRepository->findAll();
         $productCategories = $productCategoryRepository->findAll();
@@ -21,7 +21,7 @@ class HomeController extends AbstractController
             'products' => $products,
             'product_categories' => $productCategories,
 //            'thefirstImage'=>$theFirstImageByProduct,
-            'user' => $user,
+
         ]);
     }
 }
