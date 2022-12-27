@@ -5,8 +5,7 @@
   border-radius: 8px;
   padding: 5%;
   background-color: $color_white;
-  margin-top: 10%;
-  margin-bottom: 5%;
+  margin: auto;
 
   label{
     text-align: center;
@@ -18,5 +17,8 @@
   .submitBtn{
     display: flex;
     justify-content: center;
+  }
+  .agreeTerms{
+    text-align: center;
   }
 }

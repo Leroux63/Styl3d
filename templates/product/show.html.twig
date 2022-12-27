@@ -14,11 +14,11 @@
                     <button class="slider-button slider-button-next" data-slide-direction="next">&#8594</button>
                     <ul class="slides">
 
-                        <li class="slide" data-active-slide>
-                            <img src="{{ asset('build/images/logo.41a507cc.png') }}" alt="">
-                        </li>
+{#                        <li class="slide" data-active-slide>#}
+{#                            <img src="{{ asset('build/images/logo.41a507cc.png') }}" alt="">#}
+{#                        </li>#}
                         {% for image in product.images %}
-                            <li class="slide">
+                            <li class="slide" {% if loop.first %}data-active-slide{% endif %}>
                                 <img src="{{ asset('/uploads/img/' ~ image.name) }}"
                                      class="d-block w-100" alt="Image" width="400px">
                             </li>
@@ -55,8 +55,9 @@
                             {% endfor %}
                         {% endif %}
                     {% endfor %}
-                    <div>
-                        <h3>Ajouter une note</h3>
+
+                    <button id="addScore" >Ajouter une note</button>
+                    <div id="ratingForm" class="myRatingForm">
                         {{ form_start(scoreForm) }}
                         {{ form_row(scoreForm.score) }}
                         {{ form_widget(scoreForm.user, { 'attr' : { 'style':'display:none'} }) }}
@@ -99,12 +100,6 @@
                     {{ form_end(commentForm) }}
                 </div>
             </div>
-
-            <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
-
-            {{ include('product/_delete_form.html.twig') }}
-
-
         </section>
     </div>
 

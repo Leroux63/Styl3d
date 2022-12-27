@@ -23,7 +23,16 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-evenly;
-
+      border: 1px solid $color_one;
+      border-radius: 5px;
+      a:hover{
+        background-color: $color_one;
+      }
     }
+  }
+  .submitBtn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }

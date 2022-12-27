@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -17,15 +18,23 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message:'Le titre ne peut pas être vide')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message:'La description ne peut pas être vide')]
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: ProductCategory::class, mappedBy: 'products')]
+    #[Assert\NotBlank(message:'Vous devez choisir au moins une catégorie')]
     private Collection $productCategories;
 
     #[ORM\Column(length: 255)]
+    #[Assert\File(
+        maxSize: '10M',
+        mimeTypes: ['zip'],
+        uploadExtensionErrorMessage: 'Merci de choisir un fichier zip valide',
+    )]
     private ?string $fileZip = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Images::class, cascade: ['persist'], orphanRemoval: true)]
