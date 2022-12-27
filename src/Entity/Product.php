@@ -53,6 +53,9 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Comments::class, cascade: ['persist'], orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Cart::class, orphanRemoval: true)]
+    private Collection $carts;
+
 
 
 
@@ -63,6 +66,7 @@ class Product
         $this->images = new ArrayCollection();
         $this->ratings = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->carts = new ArrayCollection();
 
 
     }
@@ -244,6 +248,36 @@ class Product
             // set the owning side to null (unless already changed)
             if ($comment->getProduct() === $this) {
                 $comment->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): self
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts->add($cart);
+            $cart->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): self
+    {
+        if ($this->carts->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getProduct() === $this) {
+                $cart->setProduct(null);
             }
         }
 

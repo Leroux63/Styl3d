@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
 use App\Entity\Comments;
 use App\Entity\Images;
 use App\Entity\Product;
 use App\Entity\Rating;
 use App\Entity\User;
+use App\Form\CartType;
 use App\Form\CommentsType;
 use App\Form\ProductType;
 use App\Form\RatingType;
@@ -39,7 +41,60 @@ class ProductController extends AbstractController
     )
     {
     }
+    #[Route('/{id}', name: 'app_product_show', methods: ['GET','POST'])]
+    public function show(Request $request,Product $product,ProductRepository $productRepository): Response
+    {
+        $getAvgByProduct=$productRepository->getAverageRatingByProduct();
+        $user = $this->getUser();
+        //partie panier Upload
+        $cart = new Cart();
+        //partie commentaire
+        $comment = new Comments();
+        $score = new Rating();
+        //on génère les formulaires
+        $commentForm=$this->createForm(CommentsType::class,$comment);
+        $commentForm->handleRequest($request);
 
+        $scoreForm=$this->createForm(RatingType::class,$score);
+        $scoreForm->handleRequest($request);
+
+        $cartForm=$this->createForm(CartType::class,$cart);
+        $cartForm->handleRequest($request);
+
+        //traitement formulaire
+        if ($commentForm->isSubmitted() && $commentForm->isValid()){
+            $comment->setProduct($product);
+            $comment->setUser($user);
+            $this->entityManager->persist($comment);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('galleries', [], Response::HTTP_SEE_OTHER);
+        }
+        if ($scoreForm->isSubmitted() && $scoreForm->isValid()){
+            $score->setProduct($product);
+            $score->setUser($user);
+            $this->entityManager->persist($score);
+            $this->entityManager->flush();
+            return $this->redirectToRoute('galleries', [], Response::HTTP_SEE_OTHER);
+        }
+        if ($cartForm->isSubmitted() && $cartForm->isValid()){
+            $cart->setProduct($product);
+            $cart->setUser($user);
+            $this->entityManager->persist($cart);
+            $this->entityManager->flush();
+            dump($cart);
+            return $this->redirectToRoute('app_user', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('product/show.html.twig', [
+            'product' => $product,
+            'user' => $user,
+            'commentForm'=>$commentForm->createView(),
+            'scoreForm'=>$scoreForm->createView(),
+            'cartForm'=>$cartForm->createView(),
+            'getAvgByProduct'=>$getAvgByProduct,
+        ]);
+
+    }
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
     {
@@ -208,44 +263,5 @@ class ProductController extends AbstractController
         }
     }
 
-    #[Route('/{id}', name: 'app_product_show', methods: ['GET','POST'])]
-    public function show(Request $request,Product $product,ProductRepository $productRepository): Response
-    {
-        $getAvgByProduct=$productRepository->getAverageRatingByProduct();
-        $user = $this->getUser();
-        //partie commentaire
-        $comment = new Comments();
-        $score = new Rating();
-        //on génère les formulaires
-        $commentForm=$this->createForm(CommentsType::class,$comment);
-        $commentForm->handleRequest($request);
 
-        $scoreForm=$this->createForm(RatingType::class,$score);
-        $scoreForm->handleRequest($request);
-
-        //traitement formulaire
-        if ($commentForm->isSubmitted() && $commentForm->isValid()){
-            $comment->setProduct($product);
-            $comment->setUser($user);
-            $this->entityManager->persist($comment);
-            $this->entityManager->flush();
-            return $this->redirectToRoute('galleries', [], Response::HTTP_SEE_OTHER);
-        }
-        if ($scoreForm->isSubmitted() && $scoreForm->isValid()){
-            $score->setProduct($product);
-            $score->setUser($user);
-            $this->entityManager->persist($score);
-            $this->entityManager->flush();
-            return $this->redirectToRoute('galleries', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('product/show.html.twig', [
-            'product' => $product,
-            'user' => $user,
-            'commentForm'=>$commentForm->createView(),
-            'scoreForm'=>$scoreForm->createView(),
-            'getAvgByProduct'=>$getAvgByProduct,
-        ]);
-
-    }
 }
