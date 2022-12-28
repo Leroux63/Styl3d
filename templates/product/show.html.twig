@@ -43,9 +43,11 @@
                         {{ form_start(cartForm) }}
                         {{ form_widget(cartForm.createdAt, { 'attr' : { 'style':'display:none'} }) }}
                         {{ form_widget(cartForm.user, { 'attr' : { 'style':'display:none'} }) }}
-                        <button type="submit">Télécharger</button>
+
+                        <button type="submit" id="downloadButton">Télécharger</button>
                         {{ form_end(cartForm) }}
                     </div>
+
                     <h3>Note</h3>
                     {% for score in getAvgByProduct %}
                         {% dump(score) %}
@@ -136,6 +138,22 @@
         };
 
         setInterval(changeSlide.bind(null, 1), 6000);
+    //gerer le téléchargement
+    //         document.getElementById('downloadButton').addEventListener('click', function(e) {
+    //         e.preventDefault(); // Empêche la soumission du formulaire
+
+        {#    var xhr = new XMLHttpRequest();#}
+        {#    xhr.open('POST', '{{ path('download_route', {'id': product.id}) }}');#}
+        {#    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');#}
+        {#    xhr.onload = function() {#}
+        {#    if (xhr.status === 200) {#}
+        {#   alert('Téléchargement réussi')#}
+        {#} else {#}
+        {#        alert('Le téléchargement a échoué')#}
+        {#    }#}
+        {#};#}
+        {#    xhr.send(new URLSearchParams(new FormData(document.getElementById('cartForm'))).toString());#}
+        {#});#}
 
     </script>
 

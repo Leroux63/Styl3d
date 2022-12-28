@@ -23,7 +23,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
 use Symfony\Component\String\Slugger\SluggerInterface;
+use function PHPUnit\Framework\returnValue;
 
 
 #[Route('/product')]
@@ -48,6 +53,9 @@ class ProductController extends AbstractController
         $user = $this->getUser();
         //partie panier Upload
         $cart = new Cart();
+        $productFile=$product->getFileZip();
+        $filePath=$this->getParameter('files_directory') . '/' . $productFile;
+
         //partie commentaire
         $comment = new Comments();
         $score = new Rating();
@@ -79,10 +87,20 @@ class ProductController extends AbstractController
         if ($cartForm->isSubmitted() && $cartForm->isValid()){
             $cart->setProduct($product);
             $cart->setUser($user);
+            $cart->setDownloaded(1);
             $this->entityManager->persist($cart);
             $this->entityManager->flush();
             dump($cart);
-            return $this->redirectToRoute('app_user', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+
+            // Créez une réponse de type BinaryFileResponse
+            $response = new BinaryFileResponse($filePath);
+
+            // Configurez la réponse en ajoutant un en-tête "Content-Disposition" avec le type "attachment" et le nom du fichier
+            $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, basename($filePath));
+
+            // Envoyez la réponse au navigateur pour déclencher le téléchargement
+            return $response;
+//          return $this->redirectToRoute('app_user', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('product/show.html.twig', [
@@ -95,6 +113,7 @@ class ProductController extends AbstractController
         ]);
 
     }
+
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository): Response
     {

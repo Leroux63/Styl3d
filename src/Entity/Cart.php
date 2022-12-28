@@ -25,6 +25,9 @@ class Cart
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
+    #[ORM\Column]
+    private ?bool $downloaded = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -63,6 +66,18 @@ class Cart
     {
         $createdAt = new \DateTime('now');
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function isDownloaded(): ?bool
+    {
+        return $this->downloaded;
+    }
+
+    public function setDownloaded(bool $downloaded): self
+    {
+        $this->downloaded = $downloaded;
 
         return $this;
     }
