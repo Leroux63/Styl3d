@@ -15,8 +15,12 @@ class RatingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('score',NumberType::class)
-//            ->add('product',EntityType::class)
+            ->add('score',NumberType::class,[
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Entrez une note entre 1 et 5'
+                ],
+            ])
             ->add('user',EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'id',

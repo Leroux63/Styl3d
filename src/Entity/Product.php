@@ -19,10 +19,14 @@ class Product
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message:'Le titre ne peut pas être vide')]
+    #[Assert\Length(min: 3, minMessage: 'Le titre ne peut pas faire moins de {{ limit }} caractères')]
+    #[Assert\Length(max: 20, maxMessage: 'Le titre ne peut pas faire plus de {{ limit }} caractères')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message:'La description ne peut pas être vide')]
+    #[Assert\Length(min: 20, minMessage: 'La description ne peut pas faire moins de {{ limit }} caractères')]
+    #[Assert\Length(max: 500, maxMessage: 'La description ne peut pas faire plus de {{ limit }} caractères')]
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: ProductCategory::class, mappedBy: 'products')]
@@ -30,11 +34,11 @@ class Product
     private Collection $productCategories;
 
     #[ORM\Column(length: 255)]
-    #[Assert\File(
-        maxSize: '10M',
-        mimeTypes: ['zip'],
-        uploadExtensionErrorMessage: 'Merci de choisir un fichier zip valide',
-    )]
+//    #[Assert\File(
+//        maxSize: '30M',
+//        mimeTypes: ['zip'],
+//        uploadExtensionErrorMessage: 'Merci de choisir un fichier zip valide',
+//    )]
     private ?string $fileZip = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Images::class, cascade: ['persist'], orphanRemoval: true)]

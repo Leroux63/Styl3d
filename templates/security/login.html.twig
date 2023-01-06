@@ -4,7 +4,7 @@
 {% block body %}
     <div class="container login">
         <div class="d-flex justify-content-center ">
-            <h2 class="mt-3">Connection</h2>
+            <h2 class="mt-3">Connexion</h2>
         </div>
         <form method="post" class="loginForm col-8 mt-5">
             {% if error %}
@@ -44,6 +44,8 @@
                     Se Connecter
                 </button>
             </div>
+            <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+
         </form>
     </div>
 {% endblock %}

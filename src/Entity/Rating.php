@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RatingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RatingRepository::class)]
 class Rating
@@ -14,6 +15,9 @@ class Rating
     private ?int $id = null;
 
     #[ORM\Column]
+//    #[Assert\NotBlank(message:'La valeur ne peut pas être vide')]
+//    #[Assert\Length(min: 1, min: 'La note ne peut pas être en dessous de {{ limit }}')]
+//    #[Assert\Length(max: 5, max: 'La note ne peut pas être au dessus de{{ limit }}')]
     private ?int $score = null;
 
     #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'ratings')]

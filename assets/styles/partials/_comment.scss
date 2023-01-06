@@ -2,7 +2,9 @@
   display: none;
 }
 .active{
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .commentsProduct {
   display: flex;

@@ -7,8 +7,8 @@
         <h2 class="title_cards_body">{{ product.title }}</h2>
     </div>
     <div class="container">
-        <div class="row">
-            <div class="col-8">
+        <div class="row detail">
+            <div class="col-sm-12 col-md-8">
                 <section class="carouselProduct">
                     <button class="slider-button slider-button-prev" data-slide-direction="prev">&#8592</button>
                     <button class="slider-button slider-button-next" data-slide-direction="next">&#8594</button>
@@ -20,11 +20,6 @@
                             </li>
                         {% endfor %}
                     </ul>
-                    {#                    <div class="slides-circles"> #}
-                    {#                        <div data-active-slide></div> #}
-                    {#                        <div></div> #}
-                    {#                        <div></div> #}
-                    {#                    </div> #}
                 </section>
             </div>
             <div class="col-4">
@@ -63,25 +58,25 @@
                         {{ form_start(scoreForm) }}
                         {{ form_row(scoreForm.score) }}
                         {{ form_widget(scoreForm.user, { 'attr' : { 'style':'display:none'} }) }}
-                        <button type="submit">Ajouter</button>
+                        <button type="submit" class="btn btn-warning">Ajouter</button>
                         {{ form_end(scoreForm) }}
                     </div>
                 </div>
             </div>
         </div>
-
         <section>
             <div class="container">
                 <div class="d-flex justify-content-evenly mt-3">
                     <h2 class="title_cards_body">Commentaires</h2>
                 </div>
-                <button id="addComment">Ajouter un commentaire</button>
+                <button class="col-sm-8 col-md-4  d-flex justify-item-center " id="addComment">Ajouter un commentaire</button>
                 <div id="formComment" class="myFormComment">
 
                     {{ form_start(commentForm) }}
                     {{ form_row(commentForm.content) }}
-                    {{ form_row(commentForm.rgpd) }}
-
+                    <div class="col-4 mb-4">
+                        {{ form_row(commentForm.rgpd) }}
+                    </div>
                     <div class="col-12 mb-4">
                         {{ form_widget(commentForm.user, { 'attr' : { 'style':'display:none'} }) }}
                     </div>
@@ -89,8 +84,8 @@
                         {{ form_widget(commentForm.createdAt, { 'attr' : { 'style':'display:none'} }) }}
                     </div>
 
-                    <div class="col-12 d-flex justify-content-end pt-5">
-                        <button type="submit">Ajouter</button>
+                    <div class="col-md-4 col-sm-6 d-flex justify-content-center ">
+                        <button type="submit" class="btn btn-warning">Poster</button>
                     </div>
                     {{ form_end(commentForm) }}
                 </div>
@@ -130,30 +125,9 @@
                         : newIndex;
             slides.children[newIndex].dataset.activeSlide = true;
             delete activeSlide.dataset.activeSlide;
-
-            // const circles = document.querySelector(".slides-circles");
-            // const activeCircle = circles.querySelector("[data-active-slide]");
-            // circles.children[newIndex].dataset.activeSlide = true;
-            // delete activeCircle.dataset.activeSlide;
         };
 
         setInterval(changeSlide.bind(null, 1), 6000);
-    //gerer le téléchargement
-    //         document.getElementById('downloadButton').addEventListener('click', function(e) {
-    //         e.preventDefault(); // Empêche la soumission du formulaire
-
-        {#    var xhr = new XMLHttpRequest();#}
-        {#    xhr.open('POST', '{{ path('download_route', {'id': product.id}) }}');#}
-        {#    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');#}
-        {#    xhr.onload = function() {#}
-        {#    if (xhr.status === 200) {#}
-        {#   alert('Téléchargement réussi')#}
-        {#} else {#}
-        {#        alert('Le téléchargement a échoué')#}
-        {#    }#}
-        {#};#}
-        {#    xhr.send(new URLSearchParams(new FormData(document.getElementById('cartForm'))).toString());#}
-        {#});#}
 
     </script>
 

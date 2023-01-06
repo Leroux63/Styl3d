@@ -7,15 +7,15 @@ use App\Entity\Comments;
 use App\Entity\Images;
 use App\Entity\Product;
 use App\Entity\Rating;
-use App\Entity\User;
 use App\Form\CartType;
 use App\Form\CommentsType;
+use App\Form\EditProductType;
 use App\Form\ProductType;
 use App\Form\RatingType;
 use App\Repository\ProductRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -46,45 +46,46 @@ class ProductController extends AbstractController
     )
     {
     }
-    #[Route('/{id}', name: 'app_product_show', methods: ['GET','POST'])]
-    public function show(Request $request,Product $product,ProductRepository $productRepository): Response
+
+    #[Route('/{id}', name: 'app_product_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, Product $product, ProductRepository $productRepository): Response
     {
-        $getAvgByProduct=$productRepository->getAverageRatingByProduct();
+        $getAvgByProduct = $productRepository->getAverageRatingByProduct();
         $user = $this->getUser();
         //partie panier Upload
         $cart = new Cart();
-        $productFile=$product->getFileZip();
-        $filePath=$this->getParameter('files_directory') . '/' . $productFile;
+        $productFile = $product->getFileZip();
+        $filePath = $this->getParameter('files_directory') . '/' . $productFile;
 
         //partie commentaire
         $comment = new Comments();
         $score = new Rating();
         //on génère les formulaires
-        $commentForm=$this->createForm(CommentsType::class,$comment);
+        $commentForm = $this->createForm(CommentsType::class, $comment);
         $commentForm->handleRequest($request);
 
-        $scoreForm=$this->createForm(RatingType::class,$score);
+        $scoreForm = $this->createForm(RatingType::class, $score);
         $scoreForm->handleRequest($request);
 
-        $cartForm=$this->createForm(CartType::class,$cart);
+        $cartForm = $this->createForm(CartType::class, $cart);
         $cartForm->handleRequest($request);
 
         //traitement formulaire
-        if ($commentForm->isSubmitted() && $commentForm->isValid()){
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
             $comment->setProduct($product);
             $comment->setUser($user);
             $this->entityManager->persist($comment);
             $this->entityManager->flush();
-            return $this->redirectToRoute('galleries', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('galeries', [], Response::HTTP_SEE_OTHER);
         }
-        if ($scoreForm->isSubmitted() && $scoreForm->isValid()){
+        if ($scoreForm->isSubmitted() && $scoreForm->isValid()) {
             $score->setProduct($product);
             $score->setUser($user);
             $this->entityManager->persist($score);
             $this->entityManager->flush();
-            return $this->redirectToRoute('galleries', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('galeries', [], Response::HTTP_SEE_OTHER);
         }
-        if ($cartForm->isSubmitted() && $cartForm->isValid()){
+        if ($cartForm->isSubmitted() && $cartForm->isValid()) {
             $cart->setProduct($product);
             $cart->setUser($user);
             $cart->setDownloaded(1);
@@ -92,13 +93,13 @@ class ProductController extends AbstractController
             $this->entityManager->flush();
             dump($cart);
 
-            // Créez une réponse de type BinaryFileResponse
+            // Je crée une réponse de type BinaryFileResponse
             $response = new BinaryFileResponse($filePath);
 
-            // Configurez la réponse en ajoutant un en-tête "Content-Disposition" avec le type "attachment" et le nom du fichier
+            // Je configure la réponse en ajoutant un en-tête "Content-Disposition" avec le type "attachment" et le nom du fichier
             $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, basename($filePath));
 
-            // Envoyez la réponse au navigateur pour déclencher le téléchargement
+            // J'envoie la réponse au navigateur pour déclencher le téléchargement
             return $response;
 //          return $this->redirectToRoute('app_user', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
         }
@@ -106,23 +107,12 @@ class ProductController extends AbstractController
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'user' => $user,
-            'commentForm'=>$commentForm->createView(),
-            'scoreForm'=>$scoreForm->createView(),
-            'cartForm'=>$cartForm->createView(),
-            'getAvgByProduct'=>$getAvgByProduct,
+            'commentForm' => $commentForm->createView(),
+            'scoreForm' => $scoreForm->createView(),
+            'cartForm' => $cartForm->createView(),
+            'getAvgByProduct' => $getAvgByProduct,
         ]);
 
-    }
-
-    #[Route('/', name: 'app_product_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository): Response
-    {
-
-        $products = $productRepository->findAll();
-        return $this->render('product/index.html.twig', [
-            'products' => $products,
-
-        ]);
     }
 
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
@@ -133,10 +123,10 @@ class ProductController extends AbstractController
         $user = $this->getUser();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
-
+        $productFile = $form->get('fileZip')->getData();
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $productFile = $form->get('fileZip')->getData();
+
             /**@var UploadedFile $productFile */
             if ($productFile) {
                 //récupère le nom du fichier sans l'extension
@@ -187,18 +177,61 @@ class ProductController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/delete', name: 'app_product_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
+            $images = $product->getImages();
+            $productFile = $product->getFileZip();
+
+            foreach ($images as $image) {
+                dump($image);
+                //on récupère le nom de l'image
+                $name = $image->getName();
+                //on supprime le fichier
+//                unlink($this->getParameter('images_directory') . '/' . $name);
+
+            }
+//            unlink($this->getParameter('files_directory') . '/' . $productFile);
+            $productRepository->remove($product, true);
+
+        }
+
+        return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+
+
+    #[Route('/', name: 'app_product_index', methods: ['GET'])]
+    public function index(ProductRepository $productRepository): Response
+    {
+
+        $products = $productRepository->findAll();
+        return $this->render('product/index.html.twig', [
+            'products' => $products,
+
+        ]);
+    }
+
+
+
 
 
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(int $id, Request $request, Product $product, ProductRepository $productRepository): Response
+    #[IsGranted('ROLE_USER')]
+    public function edit(int $id, Request $request, ProductRepository $productRepository): Response
     {
         //on vérifie si l'utilisateur peut éditer avec le voter
 
 //        $this->denyAccessUnlessGranted('PRODUCT_EDIT', $product);
-
         $product = $productRepository->find($id);
+//        $productFile= $product->getFileZip();
+//        dump($productFile);
+//        $filePath=$this->getParameter('files_directory') . '/' . $productFile;
+//        $product = $productRepository->find($id);
         $user = $this->getUser();
-        $form = $this->createForm(ProductType::class, $product);
+        $form = $this->createForm(EditProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -222,6 +255,8 @@ class ProductController extends AbstractController
 
 
             }
+
+//            $product->setFileZip($filePath);
             $this->entityManager->flush();
             dump($product);
 
@@ -231,34 +266,13 @@ class ProductController extends AbstractController
         return $this->renderForm('product/edit.html.twig', [
             'product' => $product,
             'form' => $form,
-            'user'=> $user,
+            'user' => $user,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
-    public function delete(Request $request, Product $product, ProductRepository $productRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
-            $images = $product->getImages();
-            $productFile = $product->getFileZip();
-
-            foreach ($images as $image) {
-                dump($image);
-                //on récupère le nom de l'image
-                $name = $image->getName();
-                //on supprime le fichier
-                unlink($this->getParameter('images_directory') . '/' . $name);
-
-            }
-            unlink($this->getParameter('files_directory') . '/' . $productFile);
-            $productRepository->remove($product, true);
-
-        }
-
-        return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
-    }
 
     #[Route('/image/{id}/delete', name: 'app_image_delete', methods: ['DELETE'])]
+    #[IsGranted('ROLE_USER')]
     public function deleteImage(Images $image, Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -281,6 +295,7 @@ class ProductController extends AbstractController
             return new JsonResponse(['error' => 'Token Invalide'], 400);
         }
     }
+
 
 
 }

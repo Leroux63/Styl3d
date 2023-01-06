@@ -16,7 +16,7 @@ a {
 }
 
 .card {
-  border: 2px solid $color_three;
+  //border: 2px solid $color_three;
   border-radius: 25px;
   background-color: $color_white;
 }
@@ -58,7 +58,7 @@ a {
 
 .overlay::after {
   border-radius: 0 25px 0 0;
-  background-color: #FFF;
+  background-color: $color_white;
 }
 
 .card-image {
@@ -71,7 +71,7 @@ a {
   width: 250px;
   border: 2px solid $color_three;
   border-radius: 50%;
-  background: #FFF;
+  background: $color_white;
   padding: 3px;
 }
 

@@ -1,3 +1,25 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}Register{% endblock %}#}
+
+{#{% block body %}#}
+{#    {% for flash_error in app.flashes('verify_email_error') %}#}
+{#        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>#}
+{#    {% endfor %}#}
+
+{#    <h1>Register</h1>#}
+
+{#    {{ form_start(registrationForm) }}#}
+{#    {{ form_row(registrationForm.email) }}#}
+{#    {{ form_row(registrationForm.username) }}#}
+{#    {{ form_row(registrationForm.plainPassword, {#}
+{#        label: 'Password'#}
+{#    }) }}#}
+{#    {{ form_row(registrationForm.agreeTerms) }}#}
+
+{#    <button type="submit" class="btn">Register</button>#}
+{#    {{ form_end(registrationForm) }}#}
+{#{% endblock %}#}
 {% extends 'base.html.twig' %}
 
 {% block title %}Register{% endblock %}
@@ -25,6 +47,7 @@
             <div class="form-input">
                 {{ form_widget(registrationForm.plainPassword, { label: 'Password','attr': {"class": "form-control"}}) }}
             </div>
+            <label for="agreeTerms">RGPD</label>
             <div class="form-input agreeTerms my-3">
                 {{ form_row(registrationForm.agreeTerms) }}
             </div>

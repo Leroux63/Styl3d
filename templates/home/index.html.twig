@@ -17,24 +17,20 @@
                         <div class="card swiper-slide">
                             <div class="image-content">
                                 <span class="overlay"></span>
-
                                 <div class="card-image">
                                     {% for image in product.images |slice(0,1) %}
                                         <div>
                                             <img src="{{ asset('/uploads/img/' ~ image.name) }}" alt="Image" width="300"
                                                  height="300">
-
                                         </div>
                                     {% endfor %}
                                 </div>
                             </div>
-
                             <div class="card-content">
                                 <h2 class="name">   {{ product.title }}</h2>
                                 <p class="description">
-                                    {{ product.description }}
+                                    {{ product.description | slice(0,20) }}...
                                 </p>
-
                                 <button class="button"><a href="{{ path('app_product_show', {'id': product.id}) }}">Détails</a>
                                 </button>
                             </div>
@@ -43,10 +39,10 @@
                 </div>
 
             </div>
-            {% if app.user %}
-                {{ app.user.getuserName() }}
+{#            {% if app.user %}#}
+{#                {{ app.user.username }}#}
 
-            {% endif %}
+{#            {% endif %}#}
             <div class="swiper-button-next swiper-navBtn">
             </div>
             <div class="swiper-button-prev swiper-navBtn">
@@ -56,7 +52,7 @@
         </div>
     </section>
     <section class="filtersHome">
-        <ul class="nav justify-content-md-around">
+        <ul class="nav justify-content-md-around justify-content-center">
             {% for category in product_categories %}
                 <li class="nav-item py-2 m-2">
                     <a class="nav-link active " aria-current="page"
@@ -65,30 +61,6 @@
             {% endfor %}
         </ul>
     </section>
-
-
-
-
-    {#                    <div class="mt-3 row row-cols-1 row-cols-md-4 d-flex justify-content-around"> #}
-    {#                        {% for product in products %} #}
-    {#                            <div class="card productHome m-2"> #}
-    {#                                {% for image in product.images |slice(0,1) %} #}
-    {#                                    <div class="image-box"> #}
-    {#                                        <img src="{{ asset('/uploads/img/' ~ image.name) }}" class="" #}
-    {#                                             alt="{{ product.title }}"> #}
-
-    {#                                    </div> #}
-    {#                                {% endfor %} #}
-
-
-    {#                                <h3>{{ product.title }}</h3> #}
-    {#                                <p>{{ product.description }}</p> #}
-    {#                                <button> #}
-    {#                                    <a href="{{ path('app_product_show', {'id': product.id}) }}">Détails</a> #}
-    {#                                </button> #}
-    {#                            </div> #}
-    {#                        {% endfor %} #}
-    {#                    </div> #}
     <section>
         <div class="container">
             <div class="row">
@@ -96,11 +68,9 @@
                     <div class="d-flex justify-content-evenly mt-3">
                         <h2 class="title_cards_body">Nouveautés</h2>
                     </div>
-                    <!-- Topic Cards -->
                     <div id="cards_landscape_wrap-2">
-                        <div class="mt-3 row row-cols-1 row-cols-md-4 d-flex justify-content-around">
-                            {#                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3"> #}
-                            {% for product in products %}
+                        <div class="newsProductCards mt-3 row row-cols-1 row-cols-md-4 d-flex justify-content-around">
+                            {% for product in lastProducts %}
                                 <a href="{{ path('app_product_show', {'id': product.id}) }}">
                                     <div class="card-flyer">
                                         <div class="text-box">
@@ -108,21 +78,19 @@
                                                 <div class="image-box">
                                                     <img src="{{ asset('/uploads/img/' ~ image.name) }}"
                                                          class=""
-                                                         alt="{{ product.title }}">
+                                                         alt="{{ product.title  }}">
                                                 </div>
                                             {% endfor %}
                                             <div class="text-container">
                                                 <h6>{{ product.title }}</h6>
-                                                <p>{{ product.description }}</p>
+                                                <p>{{ product.description | slice(0,15) }}...</p>
                                             </div>
-
                                         </div>
                                     </div>
                                 </a>
                             {% endfor %}
                         </div>
                     </div>
-
                 </div>
                 <div class="actuHome col-md-4 ">
                     <div class="d-flex justify-content-evenly mt-3">
@@ -188,7 +156,6 @@
                                             <div>
                                                 <img src="{{ asset('/uploads/img/' ~ image.name) }}" alt="Image"
                                                      width="300" height="300">
-
                                             </div>
                                         {% endfor %}
                                     </div>
@@ -197,7 +164,7 @@
                                 <div class="card-content">
                                     <h2 class="name">   {{ product.title }}</h2>
                                     <p class="description">
-                                        {{ product.description }}
+                                        {{ product.description | slice(0,15) }}...
                                     </p>
 
                                     <button class="button"><a href="{{ path('app_product_show', {'id': product.id}) }}">Détails</a>
@@ -221,8 +188,6 @@
             </div>
         </div>
     </section>
-
-
     <section class="info_footer">
         <div class="d-flex justify-content-evenly mt-3">
             <h2>LIENS PRODUITS-FOURNITURES</h2>
@@ -242,6 +207,5 @@
                 eveniet, ea rem atque!
             </article>
         </div>
-
     </section>
 {% endblock %}

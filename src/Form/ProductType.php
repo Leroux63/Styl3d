@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\Image;
 
 
 class ProductType extends AbstractType
@@ -36,11 +38,31 @@ class ProductType extends AbstractType
             ->add('createdAt')
             ->add('fileZip', FileType::class, [
                 'mapped' => false,
+                'label'=>false,
+                'constraints' => [
+                    new File([
+                        'mimeTypes' => [ // on veut uniquement un fichier zip
+                            'application/zip',
+                        ],
+                        'mimeTypesMessage' => "Le fichier n'est pas valide.",
+                    ]),
+                ],
             ])
             ->add('images', FileType::class, [
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
+                'label'=>false,
+//                'constraints' => [
+//                    new Image([
+//                        'mimeTypes' => [ // on veut uniquement du jpeg,png ou webp
+//                            'image/jpeg',
+//                            'image/png',
+//                            'image/webp',
+//                        ],
+//                        'mimeTypesMessage' => "Le fichier n'est pas valide.",
+//                    ]),
+//                ],
             ]);
 
 

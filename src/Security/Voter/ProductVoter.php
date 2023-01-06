@@ -62,15 +62,19 @@ class ProductVoter extends Voter
                 break;
 
         }
+        return false;
         
     }
-    private function canNew(){
+    private function canNew(): bool
+    {
         return $this->security->isGranted('ROLE_PRODUCT_ADMIN');
     }
-    private function canEdit(){
+    private function canEdit(): bool
+    {
         return $this->security->isGranted('ROLE_PRODUCT_ADMIN');
     }
-    private function canDelete(){
+    private function canDelete(): bool
+    {
         return $this->security->isGranted('ROLE_PRODUCT_ADMIN');
     }
 }

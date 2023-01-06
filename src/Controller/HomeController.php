@@ -13,15 +13,13 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(ProductRepository $productRepository, ProductCategoryRepository $productCategoryRepository): Response
     {
-
-//        $theFirstImageByProduct = $productRepository->getTheFirstImageByProduct();
         $products = $productRepository->findAll();
+        $lastProductsCreated = $productRepository->getLastProducts();
         $productCategories = $productCategoryRepository->findAll();
         return $this->render('home/index.html.twig', [
             'products' => $products,
             'product_categories' => $productCategories,
-//            'thefirstImage'=>$theFirstImageByProduct,
-
+            'lastProducts' => $lastProductsCreated,
         ]);
     }
 }

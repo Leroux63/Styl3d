@@ -111,3 +111,42 @@ li.slide[data-active-slide] {
   width: 50px;
 
 }
+.myCartForm{
+  display: flex;
+  justify-content: center;
+}
+//.myRatingForm{
+//  display: flex;
+//  flex-direction: column;
+//  align-items: center;
+//}
+#rating_score{
+
+  border: 2px solid $color_dark;
+  border-radius: 5px;
+  width: 220px;
+  margin-bottom: 5px;
+}
+#addScore,#downloadButton,#addComment{
+  border: 2px solid $color_three;
+  border-radius: 5px;
+  color: $color_dark;
+  background-color: $color_one;
+  margin: 5px;
+}
+@media screen and (max-width:996px ){
+
+  .carouselProduct {
+    width: 100vw;
+    height: 55vh;
+  }
+  .detail{
+    flex-direction: column;
+    align-items: center;
+
+  }
+  .stars{
+    height: 35px;
+    width: 45px;
+  }
+}

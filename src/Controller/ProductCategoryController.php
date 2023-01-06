@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/product/category')]
 class ProductCategoryController extends AbstractController
 {
-    #[Route('/', name: 'galleries', methods: ['GET'])]
+    #[Route('/', name: 'galeries', methods: ['GET'])]
     public function index(ProductCategoryRepository $productCategoryRepository): Response
     {
         $user = $this->getUser();
@@ -34,7 +34,7 @@ class ProductCategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $productCategoryRepository->save($productCategory, true);
 
-            return $this->redirectToRoute('galleries', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('galeries', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('product_category/new.html.twig', [
@@ -62,7 +62,7 @@ class ProductCategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $productCategoryRepository->save($productCategory, true);
 
-            return $this->redirectToRoute('galleries', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('galeries', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('product_category/edit.html.twig', [
@@ -78,6 +78,6 @@ class ProductCategoryController extends AbstractController
             $productCategoryRepository->remove($productCategory, true);
         }
 
-        return $this->redirectToRoute('galleries', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('galeries', [], Response::HTTP_SEE_OTHER);
     }
 }

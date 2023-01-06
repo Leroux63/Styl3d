@@ -10,7 +10,7 @@
             {% endfor %}
             <div class="text-container">
                 <h6>{{ product.title }}</h6>
-                <p>{{ product.description }}</p>
+                <p>{{ product.description | slice(0,15) }}...</p>
             </div>
 
         </div>

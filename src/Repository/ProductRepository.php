@@ -40,7 +40,7 @@ class ProductRepository extends ServiceEntityRepository
         }
     }
 
-    public function getMostAverageRatingProducts(): float
+    public function getMostAverageRatingProducts(): array
     {
         return $this->createQueryBuilder('p')
 
@@ -53,9 +53,19 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getLastProducts(): array
+    {
+        return $this->createQueryBuilder('p')
+
+            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults(12)
+            ->getQuery()
+            ->getResult();
+    }
     public function getAverageRatingByProduct(): array
     {
         return $this->createQueryBuilder('p')
+
 
             ->addSelect('p.id, AVG(r.score) as avg_rating')
             ->join('p.ratings','r')
