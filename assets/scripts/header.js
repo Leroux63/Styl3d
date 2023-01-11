@@ -1,11 +1,8 @@
-
 let sidenav = document.getElementById("mySidenav");
 let openBtn = document.getElementById("openBtn");
-
 function openNav(){
     sidenav.classList.toggle("active")
 }
-
 openBtn.onclick = openNav;
 
 

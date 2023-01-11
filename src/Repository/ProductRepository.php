@@ -43,9 +43,8 @@ class ProductRepository extends ServiceEntityRepository
     public function getMostAverageRatingProducts(): array
     {
         return $this->createQueryBuilder('p')
-
             ->addSelect('p.id, AVG(r.score) as avg_rating')
-            ->join('p.ratings','r')
+            ->join('p.ratings', 'r')
             ->groupBy('p.id')
             ->orderBy('avg_rating', 'DESC')
             ->setMaxResults(10)
@@ -56,31 +55,55 @@ class ProductRepository extends ServiceEntityRepository
     public function getLastProducts(): array
     {
         return $this->createQueryBuilder('p')
-
             ->orderBy('p.createdAt', 'DESC')
             ->setMaxResults(12)
             ->getQuery()
             ->getResult();
     }
-    public function getAverageRatingByProduct(): array
+//    public function getAverageRatingForProduct(): array
+//    {
+////        return $this->createQueryBuilder('p')
+////
+////
+////            ->addSelect('p.id, AVG(r.score) as avg_rating')
+////            ->join('p.ratings','r')
+////            ->groupBy('p.id')
+////            ->getQuery()
+////            ->getResult();
+//    }
+
+
+//    public function getAverageRatingForProduct(int $id): array
+//    {
+//        return $this->createQueryBuilder('p')
+//            ->select('AVG(r.score)')
+//            ->join('p.ratings', 'r')
+//            ->andWhere('p.id = :id')
+//            ->setParameter('id', $id)
+//            ->getQuery()
+//            ->getResult();
+//
+//    }
+    /**
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\NoResultException
+     */
+    public function getAverageRatingForProduct(int $id): array
     {
         return $this->createQueryBuilder('p')
-
-
-            ->addSelect('p.id, AVG(r.score) as avg_rating')
-            ->join('p.ratings','r')
-            ->groupBy('p.id')
+            ->select('AVG(r.score)')
+            ->join('p.ratings', 'r')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
             ->getResult();
     }
 
-
     public function getTheFirstImageByProduct(): Images
     {
         return $this->createQueryBuilder('p')
-
             ->addSelect('COUNT(i.id) as HIDDEN nbImage')
-            ->join('p.images','p')
+            ->join('p.images', 'p')
             ->groupBy('i.id')
             ->orderBy('p.images', 'DESC')
             ->setMaxResults(1)

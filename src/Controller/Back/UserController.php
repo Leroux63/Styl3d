@@ -5,8 +5,10 @@ namespace App\Controller\Back;
 use App\Entity\Article;
 use App\Entity\Cart;
 use App\Entity\Product;
+use App\Entity\User;
 use App\Form\ArticleType;
 use App\Form\CartType;
+use App\Form\UserType;
 use App\Repository\ArticleRepository;
 use App\Repository\CartRepository;
 use App\Repository\ProductRepository;
@@ -22,28 +24,57 @@ class UserController extends AbstractController
 {
 
     public function __construct(
-        private EntityManagerInterface $entityManager,
+
     )
     {
     }
 
 
-    #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Article $article, ArticleRepository $articleRepository): Response
+//    #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'])]
+//    public function edit(Request $request, Article $article, ArticleRepository $articleRepository): Response
+//    {
+//        $form = $this->createForm(ArticleType::class, $article);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $articleRepository->save($article, true);
+//
+//            return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
+//        }
+//
+//        return $this->renderForm('article/edit.html.twig', [
+//            'article' => $article,
+//            'form' => $form,
+//        ]);
+//    }
+    #[Route('/user/{id}/edit', name: 'profile_user_edit', methods: ['GET', 'POST'])]
+    public function updateUser(int $id,User $user, Request $request,EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
+//        if (!$this->getUser()){
+//            return $this->redirectToRoute('app_login');
+//        }
+//        if (!$this->getUser() != $user){
+//            return $this->redirectToRoute('app_home');
+//        }
+        $user=$this->getUser();
+        $form = $this->createForm(UserType::class,$user);
+        if($form->isSubmitted() && $form->isValid()){
+            $user = $form->getData();
+            $entityManager->persist($user);
+            $entityManager->flush();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $articleRepository->save($article, true);
+            $this->addFlash(
+                'success',
+                'Les informations du compte ont été mises à jour'
+            );
+            return $this->redirectToRoute('app_home');
 
-            return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
         }
+        return $this->render('back/user/edit.html.twig', [
+            'form' => $form->createView(),
 
-        return $this->renderForm('article/edit.html.twig', [
-            'article' => $article,
-            'form' => $form,
         ]);
+
     }
     #[Route('/user/{id}', name: 'profile_user', methods: ['GET', 'POST'])]
     public function updateCart(int $id, CartRepository $cartRepository,UserRepository $userRepository, Request $request): Response
@@ -66,6 +97,17 @@ class UserController extends AbstractController
         ]);
 
     }
+    #[Route('/product/', name: 'app_product_index', methods: ['GET'])]
+    public function index(ProductRepository $productRepository): Response
+    {
+
+        $products = $productRepository->findAll();
+        return $this->render('product/index.html.twig', [
+            'products' => $products,
+
+        ]);
+    }
+
 //    #[Route('/user/{id}', name: 'app_user')]
 //    public function index(int $id, UserRepository $userRepository): Response
 //    {

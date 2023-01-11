@@ -135,7 +135,9 @@ li.slide[data-active-slide] {
   margin: 5px;
 }
 @media screen and (max-width:996px ){
-
+  .slideDetail{
+    padding: 0;
+  }
   .carouselProduct {
     width: 100vw;
     height: 55vh;
@@ -143,7 +145,6 @@ li.slide[data-active-slide] {
   .detail{
     flex-direction: column;
     align-items: center;
-
   }
   .stars{
     height: 35px;

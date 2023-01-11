@@ -8,7 +8,7 @@
     </div>
     <div class="container">
         <div class="row detail">
-            <div class="col-sm-12 col-md-8">
+            <div class="col-sm-12 col-md-8 slideDetail">
                 <section class="carouselProduct">
                     <button class="slider-button slider-button-prev" data-slide-direction="prev">&#8592</button>
                     <button class="slider-button slider-button-next" data-slide-direction="next">&#8594</button>
@@ -22,7 +22,7 @@
                     </ul>
                 </section>
             </div>
-            <div class="col-4">
+            <div class="col-sm-12 col-md-4">
                 <div class="d-flex justify-content-evenly mt-3">
                     <h2 class="">Détails</h2>
                 </div>
@@ -32,28 +32,40 @@
                     <h3>Date de publication</h3>
                     {{ product.createdAt|date('d-m-Y H:i:s') }}
                     <h3>Créé par :</h3>
-                    {{ product.user.userIdentifier }}
+                    {{ product.user.username }}
                     <h3>Lien de téléchargement</h3>
                     <div id="cartForm" class="myCartForm">
                         {{ form_start(cartForm) }}
                         {{ form_widget(cartForm.createdAt, { 'attr' : { 'style':'display:none'} }) }}
                         {{ form_widget(cartForm.user, { 'attr' : { 'style':'display:none'} }) }}
-
                         <button type="submit" id="downloadButton">Télécharger</button>
                         {{ form_end(cartForm) }}
                     </div>
 
                     <h3>Note</h3>
-                    {% for score in getAvgByProduct %}
-                        {% dump(score) %}
-                        {% if(product.id == score.id) %}
-                            {% for i in 1..(score.avg_rating|format_number) %}
-                                <img src="{{ asset('build/images/stars.png')| raw }}" alt="stars" class="stars">
-                            {% endfor %}
-                        {% endif %}
-                    {% endfor %}
+                    {#            {% if app.user %} #}
+                    {#                {{ app.user.username }} #}
 
-                    <button id="addScore">Ajouter une note</button>
+                    {#            {% endif %} #}
+
+
+                    {% for score in productRating %}
+                        {% for i in score %}
+                            {% if(i is null) %}
+                                {{ "Aucune note pour le moment  " }}
+                            {% else %}
+                                {% for star in 1..(i|format_number) %}
+                                    <img src="{{ asset('build/images/stars.png')| raw }}" alt="stars" class="stars">
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                    {#                    {% for cart in carts %} #}
+                    {#                        {% dump(cart) %} #}
+                    {#                    {% endfor %} #}
+                    <div class="d-flex justify-content-evenly col-md-8">
+                        <button id="addScore">Ajouter une note</button>
+                    </div>
                     <div id="ratingForm" class="myRatingForm">
                         {{ form_start(scoreForm) }}
                         {{ form_row(scoreForm.score) }}
@@ -69,7 +81,8 @@
                 <div class="d-flex justify-content-evenly mt-3">
                     <h2 class="title_cards_body">Commentaires</h2>
                 </div>
-                <button class="col-sm-8 col-md-4  d-flex justify-item-center " id="addComment">Ajouter un commentaire</button>
+                <button class="col-sm-8 col-md-4  d-flex justify-item-center " id="addComment">Ajouter un commentaire
+                </button>
                 <div id="formComment" class="myFormComment">
 
                     {{ form_start(commentForm) }}
@@ -91,9 +104,9 @@
                 </div>
                 <div class="commentsProduct">
                     {% for comment in product.comments %}
-                        <div class="commentProduct">
-                            {% include 'partials/_productComment.html.twig' %}
-                        </div>
+                            <div class="commentProduct">
+                                {% include 'partials/_productComment.html.twig' %}
+                            </div>
                     {% endfor %}
                 </div>
 

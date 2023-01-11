@@ -24,20 +24,15 @@
                     {{ form_widget(form.productCategories, {'attr': {"class": "form-control"}}) }}
                 </div>
                 <div class="imagesProduct">
-
                     {% for image in product.images %}
-                        <div class="imgProduct mx-1 my-1">
+                        <div class="imgProduct m-1">
                             <img src="{{ asset('/uploads/img/' ~ image.name) }}" alt="Image" width="150" height="100">
-
                             <a href="{{ path('app_image_delete',{'id': image.id}) }}"
-                               data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
+                               data-delete data-token="{{ csrf_token('delete' ~ image.id) }}" class="btn btn-danger">Supprimer</a>
                         </div>
-
-
                     {% endfor %}
-
-
                 </div>
+                <label for="images">Ajouter des images</label>
                 <div class="col-12 mb-4">
                     {{ form_row(form.images) }}
                 </div>
@@ -47,9 +42,9 @@
                 <div class="col-12 mb-4">
                     {{ form_widget(form.createdAt, { 'attr' : { 'style':'display:none'} }) }}
                 </div>
-{#                <div class="col-12 mb-4">#}
-{#                    {{ form_row(form.fileZip, { 'attr' : { 'style':'display:none'} })}}#}
-{#                </div>#}
+                {#                <div class="col-12 mb-4"> #}
+                {#                    {{ form_row(form.fileZip, { 'attr' : { 'style':'display:none'} })}} #}
+                {#                </div> #}
                 <div class="submitBtn my-1">
                     <button class="btn btn-lg btn-warning" type="submit">
                         Mettre à jour

@@ -3,6 +3,9 @@
 {% block title %}New Product{% endblock %}
 
 {% block body %}
+    {%  for message in app.flashes('success') %}
+        <p>{{  message }}</p>
+    {%  endfor %}
     <div class="d-flex justify-content-center ">
         <h2 class="mt-3">Ajouter un nouveau produit</h2>
     </div>

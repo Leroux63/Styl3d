@@ -39,10 +39,10 @@
                 </div>
 
             </div>
-{#            {% if app.user %}#}
-{#                {{ app.user.username }}#}
+            {#            {% if app.user %} #}
+            {#                {{ app.user.username }} #}
 
-{#            {% endif %}#}
+            {#            {% endif %} #}
             <div class="swiper-button-next swiper-navBtn">
             </div>
             <div class="swiper-button-prev swiper-navBtn">
@@ -71,23 +71,7 @@
                     <div id="cards_landscape_wrap-2">
                         <div class="newsProductCards mt-3 row row-cols-1 row-cols-md-4 d-flex justify-content-around">
                             {% for product in lastProducts %}
-                                <a href="{{ path('app_product_show', {'id': product.id}) }}">
-                                    <div class="card-flyer">
-                                        <div class="text-box">
-                                            {% for image in product.images |slice(0,1) %}
-                                                <div class="image-box">
-                                                    <img src="{{ asset('/uploads/img/' ~ image.name) }}"
-                                                         class=""
-                                                         alt="{{ product.title  }}">
-                                                </div>
-                                            {% endfor %}
-                                            <div class="text-container">
-                                                <h6>{{ product.title }}</h6>
-                                                <p>{{ product.description | slice(0,15) }}...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
+                                {% include 'front/partials/_productCard.html.twig'  %}
                             {% endfor %}
                         </div>
                     </div>
@@ -175,10 +159,10 @@
                     </div>
 
                 </div>
-{#                {% if app.user %}#}
-{#                    {{ app.user.getuserName() }}#}
+                {#                {% if app.user %} #}
+                {#                    {{ app.user.getuserName() }} #}
 
-{#                {% endif %}#}
+                {#                {% endif %} #}
                 <div class="swiper-button-next swiper-navBtn">
                 </div>
                 <div class="swiper-button-prev swiper-navBtn">

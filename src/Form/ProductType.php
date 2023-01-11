@@ -41,9 +41,10 @@ class ProductType extends AbstractType
                 'label'=>false,
                 'constraints' => [
                     new File([
-                        'mimeTypes' => [ // on veut uniquement un fichier zip
+                        'mimeTypes' => [
                             'application/zip',
                         ],
+                        'maxSize'=> '30M',
                         'mimeTypesMessage' => "Le fichier n'est pas valide.",
                     ]),
                 ],
@@ -53,19 +54,7 @@ class ProductType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'label'=>false,
-//                'constraints' => [
-//                    new Image([
-//                        'mimeTypes' => [ // on veut uniquement du jpeg,png ou webp
-//                            'image/jpeg',
-//                            'image/png',
-//                            'image/webp',
-//                        ],
-//                        'mimeTypesMessage' => "Le fichier n'est pas valide.",
-//                    ]),
-//                ],
             ]);
-
-
     }
 
     public function configureOptions(OptionsResolver $resolver): void

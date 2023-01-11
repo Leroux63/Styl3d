@@ -25,6 +25,7 @@ class Rating
 
     #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'ratings')]
     #[ORM\JoinColumn(nullable: false)]
+
     private ?User $user = null;
 
     public function getId(): ?int

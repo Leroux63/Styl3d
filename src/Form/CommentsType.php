@@ -22,14 +22,11 @@ class CommentsType extends AbstractType
                 'attr' => [
                         'placeholder' => 'Ajouter votre commentaire ici'
                     ],
-
             ])
-//            ->add('active')
-            ->add('createdAt')
             ->add('rgpd',CheckboxType::class,[
                 'label'=> "J'accepte les RGPD",
             ])
-//            ->add('product')
+            ->add('createdAt')
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'id',

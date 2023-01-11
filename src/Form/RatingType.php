@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Range;
 
 class RatingType extends AbstractType
 {
@@ -19,6 +20,14 @@ class RatingType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Entrez une note entre 1 et 5'
+                ],
+                'constraints' => [
+                    new Range([
+                        'min' => 1,
+                        'max' => 5,
+                        'minMessage' => 'La note doit être au moins de {{ limit }}',
+                        'maxMessage' => 'La note ne peut pas être supérieure à {{ limit }}',
+                    ]),
                 ],
             ])
             ->add('user',EntityType::class, [

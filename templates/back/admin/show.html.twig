@@ -3,14 +3,12 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
+    {% if is_granted('ROLE_USER') %}
     <div class="container">
         <div class="d-flex justify-content-center ">
             <h2 class="text-center mt-3">{{ app.user.username }}</h2>
         </div>
-        {%  for message in app.flashes('success') %}
-            <p>{{  message }}</p>
-        {%  endfor %}
-          <a href="{{ path('profile_user_edit', {'id': user.id}) }}" class="btn btn-warning">Mettre à jour mon compte</a>
+
         <h3>Mes fichiers téléchargés</h3>
         <table class="table table-striped table-dark">
             <thead>
@@ -36,7 +34,6 @@
         </table>
 
         <h3>Mes Produits</h3>
-        <a href="{{ path('app_product_new') }}" class="btn btn-warning">Ajouter un Produit</a>
         <table class="table table-striped table-dark">
             <thead>
             <tr>
@@ -69,4 +66,5 @@
             </tbody>
         </table>
     </div>
+    {% endif %}
 {% endblock %}

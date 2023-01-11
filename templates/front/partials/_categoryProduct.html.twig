@@ -2,12 +2,8 @@
     <div class="card-category m-3 ">
 
         <div class="container-image {% if lowHeight is defined %}low-height{% endif %}">
-            {#        <img src="{{ asset('uploads/img')~ '/'~ product.img }}" alt="{{ product.title }}"> #}
-            {#        <div class="container-price"> #}
-            {#            {{ product.price }}€ #}
-            {#        </div> #}
             <div class="container-infos">
-                {{ category.name }}
+               <h2>{{ category.name }}</h2>
             </div>
         </div>
 

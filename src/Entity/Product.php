@@ -41,7 +41,7 @@ class Product
 //    )]
     private ?string $fileZip = null;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Images::class, cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Images::class, cascade: ['remove'], orphanRemoval: true)]
     private Collection $images;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
@@ -51,10 +51,10 @@ class Product
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Rating::class, cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Rating::class, cascade: ['persist','remove'], orphanRemoval: true)]
     private Collection $ratings;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Comments::class, cascade: ['persist'], orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: Comments::class, cascade: ['persist','remove'], orphanRemoval: true)]
     private Collection $comments;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Cart::class, orphanRemoval: true)]
